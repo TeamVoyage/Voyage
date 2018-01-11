@@ -14,24 +14,20 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../react-client/dist`));
 
 app.get('/eat', (req, res) => {
-  // dummy request object
-  // req.body = {
-  //   'location': 'chicago',
-  //   'cost': 4
-  // }
   const requestBody = {
     location: 'chicago',
-    categories: ['asian', 'mexican'],
     price: 4
   };
   const term = 'restaurants';
-  // const location = 'req.body.location';
-  // const cost = req.body.cost;
-  const location = requestBody.location;
-  const price = requestBody.price;
-  const categories = requestBody.categories;
+  const options = {
+    location: requestBody.location,
+    price: requestBody.price,
+    term: term,
+    categories: '',
+    api: 'yelp'
+  };
 
-  utils.getBusinessesFromYelp(term, categories, location, price, (data) => {
+  utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
 });
@@ -42,34 +38,47 @@ app.get('/explore', (req, res) => {
   const location = req.body.location || 'chicago';
   const price = '';
 
-  utils.getBusinessesFromYelp(term, categories, location, price, (data) => {
+  const options = {
+    location: location,
+    price: price,
+    term: term,
+    categories: categories,
+    api: 'yelp'
+  };
+
+  utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
 });
 
 app.get('/party', (req, res) => {
+   const location = req.body.location || 'chicago';
+   const options = {
+     location: location,
+     api: 'eventBrite'
+   };
 
-});
+  utils.getBusinessesOrEvents(options, (data) => {
+    res.send(data);
+  });
+
+ });
 
 app.get('/sleep', (req, res) => {
-  // req.body = {
-  //   'location': 'chicago',
-  //   'cost': 3
-  // };
-
-  const requestBody = {
-    location: 'chicago',
-    cost: '1,2,3'
-  };
-
   const term = 'hotels';
-  // const location = req.body.location;
-  // const cost = req.body.cost;
-  const location = requestBody.location;
-  const price = requestBody.cost;
+  const location = req.body.location || 'chicago';
+  const price = req.body.price || '1,2,3';
   const categories = '';
 
-  utils.getBusinessesFromYelp(term, categories, location, price, (data) => {
+  const options = {
+    location: location,
+    price: price,
+    term: term,
+    categories: categories,
+    api: 'yelp'
+  };
+
+  utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
 });
@@ -83,3 +92,27 @@ app.listen(port, () => {
 // var {p, q} = o;
 
 // when to use res.end vs. res.json
+
+
+// app.get('/eat', (req, res) => {
+//   // dummy request object
+//   // req.body = {
+//   //   'location': 'chicago',
+//   //   'cost': 4
+//   // }
+//   const requestBody = {
+//     location: 'chicago',
+//     categories: ['asian', 'mexican'],
+//     price: 4
+//   };
+//   const term = 'restaurants';
+//   // const location = 'req.body.location';
+//   // const cost = req.body.cost;
+//   const location = requestBody.location;
+//   const price = requestBody.price;
+//   const categories = requestBody.categories;
+
+//   utils.getBusinessesFromYelp(term, categories, location, price, (data) => {
+//     res.send(data);
+//   });
+// });
