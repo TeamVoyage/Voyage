@@ -3,13 +3,27 @@ const axios = require('axios');
 
 let filterBusinesses = (array) => {
   return array.map(business => {
-    console.log('business categories array: ', business.categories);
+
     return {
       id: business.id,
       name: business.name,
       imageUrl: business.image_url,
       url: business.url,
       rating: business.rating
+    };
+  });
+};
+
+let filterEvents = (array) => {
+  return array.map(event => {
+    return {
+      id: event.id,
+      name: event.name.text,
+      imageUrl: event.logo.original.url,
+      url: event.url,
+      description: event.description.text,
+      start: event.start.local,
+      end: event.end.local
     };
   });
 };
