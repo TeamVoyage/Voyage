@@ -4,9 +4,9 @@
  * Visit this repo for more information:
  *   https://github.com/airbnb/javascript
  */
-module.exports = {
-  "extends": "airbnb",
-  "rules": {
-    "func-names": ["error", "never"]
-  }
-}
+// module.exports = {
+//   "extends": "airbnb",
+//   "rules": {
+//     "func-names": ["error", "never"]
+//   }
+// }
