@@ -13,13 +13,38 @@ class Results extends React.Component {
   render() {
     return (
       <div>
-        <EatView />
-        <PartyView />
+        <Link to='/eat'>Eat</Link>
+
+        <div>
+          <Route>
+            <EatView />
+          </Route>
+        </div>
+{/*        <PartyView />
         <SleepView />
         <ExploreView />
+*/}
       </div>
     );
   }
 }
 
 export default Results;
+
+        <div>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div className="navbar-nav">
+                <Link to={'/eat'}>Eat</Link>
+                <Link to={'/party'}>Party</Link>
+                <Link to={'/sleep'}>Sleep</Link>
+                <Link to={'/explore'}>Explore</Link>
+              </div>
+            </div>
+          </nav>
+          <div>
+            <Switch>
+              <Route path="/eat" render={() => <EatView eat={ this.props.eat } />} />
+            </Switch>
+          </div>
+        </div>

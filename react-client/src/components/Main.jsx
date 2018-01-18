@@ -8,23 +8,25 @@ import Results from './Results.jsx';
 class Main extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      page: '/search'
+    };
   }
 
   render() {
     return (
-      <main>
+      <div>
         <Switch>
           <Route exact path='/' component={ Home } />
           <Route path='/login' component={ Login } />
           <Route path='/search' component={ Results } />
-
 {/*          <Route path="/eat" render={() => <EatView eat={ this.props.eat } />} />
           <Route path="/party" render={() => <PartyView party={ this.props.party } />} />
           <Route path="/sleep" render={() => <SleepView sleep={ this.props.sleep } />} />
           <Route path="/explore" render={() => <ExploreView explore={ this.props.explore } />} />
 */}
         </Switch>
-      </main>
+      </div>
     );
   }
 

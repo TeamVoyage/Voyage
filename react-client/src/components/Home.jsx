@@ -23,9 +23,10 @@ class Home extends React.Component {
 
   handleReturnKey(e) {
     if (e.key === 'Enter') {
-      this.props.changeLoc(this.state.location);
-      this.props.searchLocation(this.state.location);
-      console.log('return key function', this.state.location);
+      <Link to='/results'></Link>
+      // this.props.changeLoc(this.state.location);
+      // this.props.searchLocation(this.state.location);
+      // console.log('return key function', this.state.location);
     }
   }
 
@@ -59,7 +60,7 @@ class Home extends React.Component {
             // onBlur={this.onSetDestination}
           />
           <button type="submit'">
-            <Route path='/login' component={ Login }></Route>
+            <Link to='/login'>GO</Link>
           </button>
         </div>
       </div>
