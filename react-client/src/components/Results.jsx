@@ -11,25 +11,31 @@ class Results extends React.Component {
   }
 
   render() {
+    console.log('Results', this.props);
     return (
       <div>
-        <Link to='/eat'>Eat</Link>
-
-        <div>
-          <Route>
-            <EatView />
-          </Route>
-        </div>
-{/*        <PartyView />
-        <SleepView />
-        <ExploreView />
-*/}
+        <Link to='/restaurants'>Good Eats</Link>
+      </div>
+      <div>
+        <Switch>
+          <EatView restaurants={ this.props.restaurants }/>
+          <Route path='/restaurants' component>
+        </Switch>
       </div>
     );
   }
 }
 
 export default Results;
+{/*
+        <PartyView />
+      <div>
+        <Link to='/eat'>Eat</Link>
+        <PartyView />
+        <SleepView />
+        <ExploreView />
+      </div>
+
 
         <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,3 +54,4 @@ export default Results;
             </Switch>
           </div>
         </div>
+*/}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import Login from './Login.jsx';
+import Results from './Results.jsx';
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,10 +24,9 @@ class Home extends React.Component {
 
   handleReturnKey(e) {
     if (e.key === 'Enter') {
-      <Link to='/results'></Link>
-      // this.props.changeLoc(this.state.location);
-      // this.props.searchLocation(this.state.location);
-      // console.log('return key function', this.state.location);
+      this.props.changeLoc(this.state.location);
+      this.props.searchLocation(this.state.location);
+      console.log('return key function', this.state.location);
     }
   }
 
@@ -46,6 +46,7 @@ class Home extends React.Component {
   // in case user forgets/doesn't know to press "Enter"
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <h1>Voyage</h1>
@@ -60,8 +61,11 @@ class Home extends React.Component {
             // onBlur={this.onSetDestination}
           />
           <button type="submit'">
-            <Link to='/login'>GO</Link>
+            <Link to='/search'>GO</Link>
           </button>
+          <hr/>
+
+          <Results restaurants={ this.props.categories.restaurants } />
         </div>
       </div>
     );
