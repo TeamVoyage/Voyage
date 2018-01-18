@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './header.jsx';
-import TripView from './TripView.jsx';
+import Main from './Main.jsx';
 
-class App extends React.Components {
+class App extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -11,7 +11,7 @@ class App extends React.Components {
     return (
       <div>
         <Header />
-        <TripView />
+        <Main />
       </div>
     );
   }
