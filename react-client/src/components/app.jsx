@@ -1,7 +1,7 @@
 import React from 'react';
 import RouteProps from 'react-route-props';
 import { Route, Switch, indexRoute } from 'react-router-dom';
-import Header from './header.jsx';
+import AppHeader from './AppHeader.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import User from './User.jsx';
@@ -29,7 +29,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Header />
+        <AppHeader />
         <Switch>
           <RouteProps exact path='/' component={ Home } categories={ this.state } />
           <RouteProps path='/login' component={ Login } />
