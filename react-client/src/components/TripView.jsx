@@ -3,7 +3,7 @@ import EatView from './EatView.jsx';
 import PartyView from './PartyView.jsx';
 import SleepView from './SleepView.jsx';
 import ExploreView from './ExploreView.jsx';
-import navHeader from './navHeader.jsx'
+import navHeader from './navHeader.jsx';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 class TripView extends React.Component {
@@ -44,7 +44,7 @@ class TripView extends React.Component {
   // <Switch> tag used to ensure that only the matching path component will render
   // Example: Without <Switch>, "/e" and "/eat" path components would both render
   // because "/e" path matches the first two strings in "/eat"
-  // More info here: https://reacttraining.com/react-router/web/api/Switch  
+  // More info here: https://reacttraining.com/react-router/web/api/Switch
 
 }
 
