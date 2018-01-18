@@ -1,4 +1,6 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import Login from './Login.jsx';
 
 class Home extends React.Component {
   constructor(props) {
@@ -57,7 +59,7 @@ class Home extends React.Component {
             // onBlur={this.onSetDestination}
           />
           <button type="submit'">
-            Go!
+            <Route path='/login' component={ Login }></Route>
           </button>
         </div>
       </div>
