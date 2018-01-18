@@ -1,4 +1,4 @@
-body {
+/*body {
   background-color: #fedc3d;
   color: white;
   background: url("https://i.imgur.com/jbZwJAw.jpg") no-repeat center center fixed;
@@ -73,7 +73,7 @@ td {
 }
 
 .mainlogo {
-  position: fixed; /* or absolute */
+  position: fixed;
 top: 50%;
 left: 50%;
 }
@@ -125,3 +125,4 @@ button {
   color: black;
   text-align: right;
 }
+*/
