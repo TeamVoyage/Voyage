@@ -96,6 +96,16 @@ app.get('/trips', (req, res) => {
   });
 });
 
+app.delete('/trips', (req, res) => {
+  db.deleteTrip(req.params.id, (err, response) => {
+    if (err) {
+      res.sendStatus(501);
+    } else {
+      res.sendStatus(200);
+    }
+  })
+});
+
 app.listen(port, () => {
   console.log('listening on port 3000!');
 });
