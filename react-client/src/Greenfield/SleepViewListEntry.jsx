@@ -2,10 +2,11 @@ import React from 'react';
 
 let SleepViewListEntry = (props) => {
   return (
-    <tr>
-      <td> <a href={ props.item.url }><h3>{ props.item.name }</h3></a> </td>
-      <td> <img src={props.item.imageUrl.replace('/o.jpg', '/m.jpg')} alt="" /> </td>
-    </tr>
+    <div key={ props.hotel.id }>
+      <h3><a href={ props.hotel.url }>{ props.hotel.name }</a></h3>
+      <p>{ props.hotel.location }</p>
+      <img src={props.hotel.imageUrl.replace('/o.jpg', '/m.jpg')} alt="" />
+    </div>
   );
 };
 

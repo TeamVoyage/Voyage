@@ -19,7 +19,9 @@ class App extends React.Component {
           url: 'www.something.com',
           imageUrl: ''
         }
-      ]
+      ],
+      hotels: [],
+      events: []
     };
   }
 

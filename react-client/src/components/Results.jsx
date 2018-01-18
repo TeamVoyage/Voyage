@@ -1,6 +1,5 @@
 import React from 'react';
 import EatView from '../Greenfield/EatView.jsx';
-import PartyView from '../Greenfield/PartyView.jsx';
 import SleepView from '../Greenfield/SleepView.jsx';
 import ExploreView from '../Greenfield/ExploreView.jsx';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
@@ -14,13 +13,17 @@ class Results extends React.Component {
     console.log('Results', this.props);
     return (
       <div>
-        <Link to='/restaurants'>Good Eats</Link>
-      </div>
-      <div>
-        <Switch>
+        <div>
           <EatView restaurants={ this.props.restaurants }/>
-          <Route path='/restaurants' component>
-        </Switch>
+        </div>
+        <hr/>
+        <div>
+          <SleepView hotels={ this.props.hotels } />
+        </div>
+        <hr/>
+        <div>
+          <ExploreView events={ this.props.events } />
+        </div>
       </div>
     );
   }

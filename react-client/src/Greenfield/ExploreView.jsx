@@ -4,20 +4,11 @@ import ExploreViewListEntry from './ExploreViewListEntry.jsx';
 let ExploreView = (props) => {
 
   return (
-    <div className="viewTable">
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.explore.map(item =>
-            <ExploreViewListEntry key={props.explore.indexOf(item)} item={item} />
-          ) }
-        </tbody>
-      </table>
+    <div>
+      <h3>Events</h3>
+      {props.events.map(event =>
+        <EatViewListEntry key={event.id} event={event} />
+      )}
     </div>
   );
 };

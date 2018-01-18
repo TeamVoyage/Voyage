@@ -2,10 +2,11 @@ import React from 'react';
 
 let ExploreViewListEntry = (props) => {
   return (
-    <tr>
-      <td> <a href={ props.item.url }><h3>{ props.item.name }</h3></a> </td>
-      <td> <img src={props.item.imageUrl.replace('/o.jpg', '/m.jpg')} alt="" /> </td>
-    </tr>
+    <div key={ props.event.id }>
+      <h3><a href={ props.event.url }>{ props.event.name }</a></h3>
+      <p>{ props.event.location }</p>
+      <img src={props.event.imageUrl.replace('/o.jpg', '/m.jpg')} alt="" />
+    </div>
   );
 };
 

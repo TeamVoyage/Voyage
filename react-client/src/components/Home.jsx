@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
+import SearchLocation from './SearchLocation.jsx';
 import Results from './Results.jsx';
 
 
@@ -49,24 +50,14 @@ class Home extends React.Component {
     console.log(this.props);
     return (
       <div>
-        <h1>Voyage</h1>
-        <h2>Plan your next getaway!</h2>
-        <div>
-          <input
-            type="text"
-            value={this.state.value}
-            placeholder="I want to go to..."
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleReturnKey}
-            // onBlur={this.onSetDestination}
-          />
-          <button type="submit'">
-            <Link to='/search'>GO</Link>
-          </button>
-          <hr/>
+        <SearchLocation />
+        <hr/>
 
-          <Results restaurants={ this.props.categories.restaurants } />
-        </div>
+        <Results
+          restaurants={ this.props.categories.restaurants }
+          hotels={ this.props.categories.hotels }
+          events={ this.props.categories.events }
+        />
       </div>
     );
   }

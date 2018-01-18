@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class SearchLocation extends React.Component {
   constructor(props) {
@@ -43,20 +44,81 @@ class SearchLocation extends React.Component {
   // in case user forgets/doesn't know to press "Enter"
 
   render() {
+    console.log(this.props);
     return (
-      <div className="search-bar destination">
-        <input
-          className="form-control"
-          type="text"
-          value={this.state.value}
-          placeholder="I want to go to..."
-          onChange={this.handleInputChange}
-          onKeyPress={this.handleReturnKey}
-          onBlur={this.onSetDestination}
-        />
+      <div>
+        <h1>Voyage</h1>
+        <h2>Plan your next getaway!</h2>
+        <div>
+          <input
+            type="text"
+            value={this.state.value}
+            placeholder="I want to go to..."
+            onChange={this.handleInputChange}
+            onKeyPress={this.handleReturnKey}
+            // onBlur={this.onSetDestination}
+          />
+          <button type="submit'">
+            <Link to='/search'>GO</Link>
+          </button>
+        </div>
       </div>
     );
   }
 }
 
 export default SearchLocation;
+
+
+
+  // render() {
+//     console.log(this.props);
+//     return (
+//       <div>
+//         <h1>Voyage</h1>
+//         <h2>Plan your next getaway!</h2>
+//         <div>
+//           <input
+//             type="text"
+//             value={this.state.value}
+//             placeholder="I want to go to..."
+//             onChange={this.handleInputChange}
+//             onKeyPress={this.handleReturnKey}
+//             // onBlur={this.onSetDestination}
+//           />
+//           <button type="submit'">
+//             <Link to='/search'>GO</Link>
+//           </button>
+//           <hr/>
+
+//           <Results
+//             restaurants={ this.props.categories.restaurants }
+//             hotels={ this.props.categories.hotels }
+//             events={ this.props.categories.events }
+//           />
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Home;
+
+
+
+
+//   render() {
+//     return (
+//       <div className="search-bar destination">
+//         <input
+//           className="form-control"
+//           type="text"
+//           value={this.state.value}
+//           placeholder="I want to go to..."
+//           onChange={this.handleInputChange}
+//           onKeyPress={this.handleReturnKey}
+//           onBlur={this.onSetDestination}
+//         />
+//       </div>
+//     );
+//   }

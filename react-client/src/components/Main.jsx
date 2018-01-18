@@ -20,6 +20,7 @@ class Main extends React.Component {
         <Results categories={ this.props.categories }/>
 {/*
        <Switch>
+
           <Route exact path='/' component={ Home } />
           <Route path='/login' component={ Login } />
           <Route path='/search' component={ Results } />
