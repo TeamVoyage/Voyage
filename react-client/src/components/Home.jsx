@@ -11,9 +11,14 @@ class Home extends React.Component {
   }
 
   // Only render results if search location provided
+  // or if one of the categories does not have an
+  // empty array
   displaySearch() {
     let display = null;
-    if (this.props.info.location) {
+    if (this.props.info.location ||
+        (this.props.info.categories.restaurants.length !== 0 ||
+         this.props.info.categories.hotels.length !== 0 ||
+         this.props.info.categories.events.length !== 0)) {
       display =
         <div>
           <hr/>
