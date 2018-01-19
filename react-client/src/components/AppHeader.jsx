@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Login from './Login.jsx';
 
 class AppHeader extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
 
@@ -11,7 +15,7 @@ class AppHeader extends React.Component {
       <div id="appHeader">
         <p>Logo</p>
         <p>Search Area</p>
-        <p>Login</p>
+        <Login handleLogOut={ this.props.handleLogOut } isSignedIn={ this.props.isSignedIn } />
         <p>Team</p>
       </div>
     );
