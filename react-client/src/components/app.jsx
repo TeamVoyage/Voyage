@@ -31,12 +31,12 @@ class App extends React.Component {
     $.ajax({
       url: '/checkSession',
       success: function(isSignedIn) {
-        that.setState({ isSignedIn: isSignedIn })
+        that.setState({ isSignedIn: isSignedIn });
       },
       error: function() {
-        console.log('check access token error')
+        console.log('check access token error');
       }
-    })
+    });
   }
 
   handleLogOut() {
@@ -48,12 +48,12 @@ class App extends React.Component {
     $.ajax({
       url: '/logOut',
       success: function(isSignedIn) {
-        that.setState({ isSignedIn: isSignedIn })
+        that.setState({ isSignedIn: isSignedIn });
       },
       error: function() {
-        console.log('logout error')
+        console.log('logout error');
       }
-    })
+    });
   }
 
   go(loc) {
@@ -115,6 +115,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('this.state: ', JSON.stringify(this.state, null, 2));
     return (
       <div>
         <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>

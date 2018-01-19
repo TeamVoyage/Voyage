@@ -27,7 +27,7 @@ class Home extends React.Component {
   // If User logged in, render Board component
   displayBoard() {
     let display = null;
-    if (this.props.info.isLoggedIn) {
+    if (this.props.info.isSignedIn) {
       display =
         <div>
           <Board />
