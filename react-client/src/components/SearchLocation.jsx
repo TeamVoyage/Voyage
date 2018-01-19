@@ -8,8 +8,8 @@ class SearchLocation extends React.Component {
       location: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.onSetDestination = this.onSetDestination.bind(this);
     this.handleReturnKey = this.handleReturnKey.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInputChange(e) {
@@ -17,34 +17,20 @@ class SearchLocation extends React.Component {
       location: e.target.value,
     });
     console.log('input data', this.state.location);
-    console.log('input data', this.state.location);
   }
 
   handleReturnKey(e) {
     if (e.key === 'Enter') {
-      this.props.changeLoc(this.state.location);
-      this.props.searchLocation(this.state.location);
-      console.log('return key function', this.state.location);
+      this.props.go(this.state.location);
     }
   }
 
-  // Not used in current iteration
-  // Was initially left in case we decided to add a submit button for the location
   handleClick(e) {
     e.preventDefault();
-    this.props.searchLocation(this.target.name);
+    this.props.go(this.state.location);
   }
-
-
-  onSetDestination() {
-    this.props.changeLoc(this.state.location);
-  }
-
-  // onBlur acts as a redundancy to onKeyPress
-  // in case user forgets/doesn't know to press "Enter"
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h1>Voyage</h1>
@@ -56,10 +42,12 @@ class SearchLocation extends React.Component {
             placeholder="I want to go to..."
             onChange={this.handleInputChange}
             onKeyPress={this.handleReturnKey}
-            // onBlur={this.onSetDestination}
           />
-          <button type="submit'">
-            <Link to='/search'>GO</Link>
+          <button
+            type="submit'"
+            onClick={ this.handleClick }
+          >
+            GO
           </button>
         </div>
       </div>

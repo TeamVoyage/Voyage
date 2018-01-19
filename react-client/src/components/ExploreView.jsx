@@ -7,7 +7,7 @@ let ExploreView = (props) => {
     <div>
       <h3>Events</h3>
       {props.events.map(event =>
-        <EatViewListEntry key={event.id} event={event} />
+        <ExploreViewListEntry key={ event.id } event={ event } />
       )}
     </div>
   );
