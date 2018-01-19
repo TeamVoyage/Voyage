@@ -35,7 +35,7 @@ class Login extends React.Component {
       <div>
         <nav className="navbar navbar-light bg-light">
           <a className="navbar-brand" href="#">
-            <img src="./img/doge.jpg" width="28" height="28" alt="logo" class="d-inline-block align-top" />
+            <img src="./img/doge.jpg" width="28" height="28" alt="logo" className="d-inline-block align-top" />
             Voyage
           </a>
           <div>
