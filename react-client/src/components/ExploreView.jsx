@@ -5,9 +5,9 @@ let ExploreView = (props) => {
 
   return (
     <div>
-      <h3>Events</h3>
-      {props.events.map(event =>
-        <ExploreViewListEntry key={ event.id } event={ event } />
+      <h2>Events | { props.info.location }</h2>
+      {props.info.events.map(event =>
+        <ExploreViewListEntry key={ event.id } event={ event } location={ props.info.location }/>
       )}
     </div>
   );

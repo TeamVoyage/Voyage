@@ -2,7 +2,6 @@ import React from 'react';
 import RouteProps from 'react-route-props';
 import { Route, Switch, indexRoute } from 'react-router-dom';
 import axios from 'axios';
-import AppHeader from './AppHeader.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import User from './User.jsx';
@@ -30,7 +29,7 @@ class App extends React.Component {
       location: loc
     })
       .then(response => {
-        console.log('explore data from server', response);
+        console.log('eat data from server', response);
         this.setState({
           restaurants: response.data
         });
@@ -43,7 +42,7 @@ class App extends React.Component {
       location: loc
     })
       .then(response => {
-        console.log('explore data from server', response);
+        console.log('sleep data from server', response);
         this.setState({
           hotels: response.data
         });
@@ -64,15 +63,26 @@ class App extends React.Component {
       .catch(error => {
         console.log('error..!!', error);
       });
+
+    axios.post('/party', {
+      location: loc
+    })
+      .then(response => {
+        console.log('party data from server', response);
+        this.setState({
+          events: this.state.events.concat(response.data)
+        });
+      })
+      .catch(error => {
+        console.log('error..!!', error);
+      });
   }
 
   render() {
-
     return (
       <div>
-        <AppHeader />
         <Switch>
-          <RouteProps exact path='/' component={ Home } categories={ this.state } go={ this.go }/>
+          <RouteProps exact path='/' component={ Home } info={ this.state } go={ this.go }/>
           <RouteProps path='/login' component={ Login } />
           <RouteProps path='/user/:id' component={ User } />
         </Switch>

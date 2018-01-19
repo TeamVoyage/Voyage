@@ -5,9 +5,9 @@ let SleepView = (props) => {
 
   return (
     <div>
-      <h3>Accommodations</h3>
-      {props.hotels.map(hotel =>
-        <SleepViewListEntry key={hotel.id} hotel={hotel} />
+      <h2>Accommodations | { props.info.location }</h2>
+      {props.info.hotels.map(hotel =>
+        <SleepViewListEntry key={ hotel.id } hotel={ hotel } location={ props.info.location }/>
       )}
     </div>
   );

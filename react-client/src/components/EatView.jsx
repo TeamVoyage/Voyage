@@ -4,14 +4,13 @@ import EatViewListEntry from './EatViewListEntry.jsx';
 const EatView = (props) => {
   return (
     <div>
-      <h3>Good Eats</h3>
-      {props.restaurants.map(restaurant =>
-        <EatViewListEntry key={restaurant.id} restaurant={restaurant} />
+      <h2>Restaurants | { props.info.location }</h2>
+      {props.info.restaurants.map(restaurant =>
+        <EatViewListEntry key={ restaurant.id } restaurant={ restaurant } location={ props.info.location }/>
       )}
     </div>
   );
 };
-
 
 export default EatView;
 
