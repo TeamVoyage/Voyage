@@ -2,6 +2,16 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/tripcollab');
 // mongoose.connect(process.env.MONGOLAB_PURPLE_URI);
 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connected to mongo')
+});
+
+const logout = (sessionID, cb) => {
+  User.update({ sessionID: sessionID }, { $set: { sessionID: '' }}, cb);
+}
+
 let restaurantSchema = mongoose.Schema({
   name: String,
   imageUrl: String,
@@ -27,8 +37,9 @@ let attractionSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-  googleId: String,
   username: String,
+  fbId: String,
+  sessionID: String,
   trips: Array
 });
 
@@ -79,10 +90,33 @@ let getAllTrips = (cb) => {
     });
   };
 
+const updateOrCreateUser = (query, cb) => {
+  User.findOne({ fbId: query.fbId }, (err, user) => {
+    if (!user) {
+      let newUser = new User({
+        username: query.username,
+        sessionID: query.sessionID,
+        fbId: query.fbId
+      });
+      newUser.save(function(err, user) {
+        cb(err, user);
+      });
+    } else {
+      user.sessionID = query.sessionID
+      user.save(function(err, user) {
+        cb(err, user);
+      });
+    }
+  });
+}
+
 
 module.exports.deleteTrip = deleteTrip;
 module.exports.saveTrip = saveTrip;
 module.exports.getAllTrips = getAllTrips;
+module.exports.updateOrCreateUser = updateOrCreateUser;
+module.exports.User = User;
+module.exports.logout = logout
 
 // // dummy data for testing
 // const testTrip = {

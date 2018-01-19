@@ -5,6 +5,7 @@ import axios from 'axios';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import User from './User.jsx';
+import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,41 @@ class App extends React.Component {
       location: ''
     };
     this.go = this.go.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
+  }
+
+  componentDidMount() {
+    this.signIn();
+  }
+
+  signIn() {
+    var that = this;
+    $.ajax({
+      url: '/checkSession',
+      success: function(isSignedIn) {
+        that.setState({ isSignedIn: isSignedIn })
+      },
+      error: function() {
+        console.log('check access token error')
+      }
+    })
+  }
+
+  handleLogOut() {
+    this.logOut();
+  }
+
+  logOut() {
+    var that = this;
+    $.ajax({
+      url: '/logOut',
+      success: function(isSignedIn) {
+        that.setState({ isSignedIn: isSignedIn })
+      },
+      error: function() {
+        console.log('logout error')
+      }
+    })
   }
 
   go(loc) {
@@ -81,9 +117,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
         <Switch>
           <RouteProps exact path='/' component={ Home } info={ this.state } go={ this.go }/>
-          <RouteProps path='/login' component={ Login } />
           <RouteProps path='/user/:id' component={ User } />
         </Switch>
       </div>

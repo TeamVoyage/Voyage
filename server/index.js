@@ -1,15 +1,46 @@
 const express = require('express');
 //const passportSetup = require('./config/passport-setup');
-const authRoutes = require('./routes/auth-routes');
 const bodyParser = require('body-parser');
 const db = require('../database');
 const mongoose = require('mongoose');
 const utils = require('./utils');
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const Strategy = require('passport-facebook').Strategy;
+const cookieParser = require('cookie-parser');
+
+var User = db.User;
+
+passport.use(new Strategy({
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.URL + '/login/facebook/return',
+    passReqToCallback: true
+  },
+    function(req, accessToken, refreshToken, profile, done) {
+      db.updateOrCreateUser({ fbId : profile.id, username: profile.displayName,  sessionID: req.sessionID }, function (err, user) {
+        return done(err, user);
+      });
+    }
+  ));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id,function(err,user){
+    done(err, user);
+  });
+});
+
 
 const app = express();
 
 const port = process.env.PORT || 3000;
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -24,6 +55,34 @@ app.use(express.static(`${__dirname}/../react-client/dist`));
 // app.get('/auth/home', (req, res) => {
 //   res.render('home');
 // });
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/login/facebook/return',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.get('/checkSession', (req, res) => {
+  User.findOne({ sessionID: req.sessionID }, (err, user) => {
+    if (user) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  });
+});
+
+app.get('/logOut', (req, res) => {
+  db.logout(req.sessionID, function() {
+    res.send(false);
+  });
+});
 
 app.post('/eat', (req, res) => {
   console.log('eat endpoint hit');
