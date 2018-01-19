@@ -10,6 +10,7 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log('HOME PROPS: ', this.props);
     return (
       <div>
         <SearchLocation go={ this.props.go }/>

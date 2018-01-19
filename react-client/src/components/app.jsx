@@ -12,15 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      restaurants: [
-        {
-          name: 'Cossetta\'s',
-          location: 'St. Paul, MN',
-          id: 1,
-          url: 'www.something.com',
-          imageUrl: ''
-        }
-      ],
+      restaurants: [],
       hotels: [],
       events: [],
       isSignedIn: false,
@@ -34,19 +26,45 @@ class App extends React.Component {
       location: loc
     });
 
-    axios.post('/explore', {
-      location: this.state.location
+    axios.post('/eat', {
+      location: loc
     })
       .then(response => {
         console.log('explore data from server', response);
-        this.getExploreData(response.data);
+        this.setState({
+          restaurants: response.data
+        });
+      })
+      .catch(error => {
+        console.log('error..!!', error);
+      });
+
+    axios.post('/sleep', {
+      location: loc
+    })
+      .then(response => {
+        console.log('explore data from server', response);
+        this.setState({
+          hotels: response.data
+        });
+      })
+      .catch(error => {
+        console.log('error..!!', error);
+      });
+
+    axios.post('/explore', {
+      location: loc
+    })
+      .then(response => {
+        console.log('explore data from server', response);
+        this.setState({
+          events: response.data
+        });
       })
       .catch(error => {
         console.log('error..!!', error);
       });
   }
-
-
 
   render() {
 
