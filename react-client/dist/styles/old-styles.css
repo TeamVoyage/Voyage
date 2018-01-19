@@ -1,0 +1,127 @@
+body {
+  background-color: #fedc3d;
+  color: white;
+  background: url("https://i.imgur.com/jbZwJAw.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+  color: black;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 60px;
+}
+
+h5 {
+  color: black;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.headers {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.searchContainer {
+  background-color: white;
+  border-radius: 5px;
+  opacity: 0.9;
+  width: 60%;
+  margin: 20px 20px;
+  padding: 20px 50px;
+  margin: auto;
+  color: black;
+}
+
+.radioButton, .categoryBox {
+  visibility: hidden;
+  vertical-align: middle;
+}
+
+.priceButtons, .col-sm-12 {
+  text-align: center;
+}
+
+.priceText {
+  padding-top: 25px;
+}
+
+.viewTable {
+  background-color: white;
+  opacity: 0.9;
+  margin: 20px 20px;
+  padding: 20px 20px;
+}
+
+table {
+  width: 100%;
+  overflow: auto;
+}
+
+td {
+  width: 200px;
+  margin-left: 20px;
+}
+
+.navbar-nav a {
+  font-size: 30px;
+  margin-right: 30px;
+}
+
+.mainlogo {
+  position: fixed; /* or absolute */
+top: 50%;
+left: 50%;
+}
+
+label {
+  border: 0.5px solid gray;
+  border-radius: 10px;
+  background-color: #7cdbd5;
+  color: white;
+  font-size: 20px;
+  padding-right: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  -webkit-transition: background-color 0.2s ease-out;
+  -moz-transition: background-color 0.2s ease-out;
+  -o-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+}
+
+.toggleOption {
+  background-color: #fedc3d;
+}
+
+.goButton {
+  text-align: center;
+  margin-top: 50px;
+}
+
+img.resize {
+  height: auto;
+}
+
+button {
+  text-align: center;
+  background-color: #fedc3d !important;
+  border: none !important;
+  padding: 10px 30px !important;
+  font-size: 35px !important;
+  font-weight: bold !important;
+}
+
+#nav {
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  color: black;
+  text-align: right;
+}
