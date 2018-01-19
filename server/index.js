@@ -30,7 +30,7 @@ app.post('/eat', (req, res) => {
   const term = 'restaurants';
   const options = {
     location: req.body.location || 'chicago',
-    price: req.body.price || 4,
+    price: '1,2,3,4',
     term: term,
     categories: req.body.categories || '',
     api: 'yelp'
@@ -47,7 +47,7 @@ app.post('/explore', (req, res) => {
   const options = {
     location: req.body.location || 'newyork',
     term: term,
-    categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
+    // categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
     api: 'yelp'
   };
 
@@ -58,15 +58,15 @@ app.post('/explore', (req, res) => {
 
 app.post('/party', (req, res) => {
   console.log('party endpoint hit');
-   const options = {
-     location: req.body.location || 'chicago',
-     api: 'eventBrite'
-   };
+  const options = {
+    location: req.body.location || 'chicago',
+    api: 'eventBrite'
+  };
 
   utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
- });
+});
 
 app.post('/sleep', (req, res) => {
   console.log('sleep endpoint hit');
@@ -103,7 +103,7 @@ app.delete('/trips', (req, res) => {
     } else {
       res.sendStatus(200);
     }
-  })
+  });
 });
 
 app.listen(port, () => {
