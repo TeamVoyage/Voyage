@@ -11,10 +11,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
-      restaurants: [],
-      hotels: [],
-      events: [],
+      userId: '',
+      userBoard: [],
+      categories: {},
       isSignedIn: false,
       location: ''
     };
