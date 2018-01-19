@@ -1,6 +1,7 @@
 import React from 'react';
 import RouteProps from 'react-route-props';
 import { Route, Switch, indexRoute } from 'react-router-dom';
+import axios from 'axios';
 import AppHeader from './AppHeader.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
@@ -25,12 +26,16 @@ class App extends React.Component {
       isSignedIn: false,
       location: ''
     };
+    this.go = this.go.bind(this);
   }
 
-  go() {
+  go(loc) {
+    this.setState({
+      location: loc
+    });
+
     axios.post('/explore', {
-      location: this.state.location,
-      price: this.state.price,
+      location: this.state.location
     })
       .then(response => {
         console.log('explore data from server', response);
@@ -41,13 +46,15 @@ class App extends React.Component {
       });
   }
 
+
+
   render() {
 
     return (
       <div>
         <AppHeader />
         <Switch>
-          <RouteProps exact path='/' component={ Home } categories={ this.state } />
+          <RouteProps exact path='/' component={ Home } categories={ this.state } go={ this.go }/>
           <RouteProps path='/login' component={ Login } />
           <RouteProps path='/user/:id' component={ User } />
         </Switch>
