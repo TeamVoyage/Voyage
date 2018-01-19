@@ -48,7 +48,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-        // <Results
-        //   info={ this.props.info }
-        // />
