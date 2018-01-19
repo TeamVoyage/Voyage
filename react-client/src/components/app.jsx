@@ -13,7 +13,11 @@ class App extends React.Component {
     this.state = {
       userId: '',
       userBoard: [],
-      categories: {},
+      categories: {
+        restaurants: [],
+        hotels: [],
+        events: []
+      },
       isSignedIn: false,
       location: ''
     };
