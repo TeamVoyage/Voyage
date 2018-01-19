@@ -3,7 +3,7 @@ import RouteProps from 'react-route-props';
 import { Route, Switch, indexRoute } from 'react-router-dom';
 import axios from 'axios';
 import Home from './Home.jsx';
-// import Login from './Login.jsx';
+import Login from './Login.jsx';
 import User from './User.jsx';
 import $ from 'jquery';
 
@@ -117,10 +117,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
         <Switch>
-          <AppHeader handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
           <RouteProps exact path='/' component={ Home } info={ this.state } go={ this.go }/>
-          <RouteProps path='/login' component={ Login } />
           <RouteProps path='/user/:id' component={ User } />
         </Switch>
       </div>
