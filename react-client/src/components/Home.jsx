@@ -11,9 +11,14 @@ class Home extends React.Component {
   }
 
   // Only render results if search location provided
+  // or if one of the categories does not have an
+  // empty array
   displaySearch() {
     let display = null;
-    if (this.props.info.location) {
+    if (this.props.info.location ||
+        (this.props.info.categories.restaurants.length !== 0 ||
+         this.props.info.categories.hotels.length !== 0 ||
+         this.props.info.categories.events.length !== 0)) {
       display =
         <div>
           <hr/>
@@ -27,7 +32,7 @@ class Home extends React.Component {
   // If User logged in, render Board component
   displayBoard() {
     let display = null;
-    if (this.props.info.isLoggedIn) {
+    if (this.props.info.isSignedIn) {
       display =
         <div>
           <Board />

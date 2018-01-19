@@ -20,14 +20,16 @@ class SearchLocation extends React.Component {
   }
 
   handleReturnKey(e) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && this.state.location) {
       this.props.go(this.state.location);
     }
   }
 
   handleClick(e) {
     e.preventDefault();
-    this.props.go(this.state.location);
+    if (this.state.location) {
+      this.props.go(this.state.location);
+    }
   }
 
   render() {
