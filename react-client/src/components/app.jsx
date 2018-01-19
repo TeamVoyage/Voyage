@@ -21,8 +21,24 @@ class App extends React.Component {
         }
       ],
       hotels: [],
-      events: []
+      events: [],
+      isSignedIn: false,
+      location: ''
     };
+  }
+
+  go() {
+    axios.post('/explore', {
+      location: this.state.location,
+      price: this.state.price,
+    })
+      .then(response => {
+        console.log('explore data from server', response);
+        this.getExploreData(response.data);
+      })
+      .catch(error => {
+        console.log('error..!!', error);
+      });
   }
 
   render() {

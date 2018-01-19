@@ -17,7 +17,6 @@ class SearchLocation extends React.Component {
       location: e.target.value,
     });
     console.log('input data', this.state.location);
-    console.log('input data', this.state.location);
   }
 
   handleReturnKey(e) {
@@ -58,8 +57,10 @@ class SearchLocation extends React.Component {
             onKeyPress={this.handleReturnKey}
             // onBlur={this.onSetDestination}
           />
-          <button type="submit'">
-            <Link to='/search'>GO</Link>
+          <button
+            type="submit'"
+          >
+            GO
           </button>
         </div>
       </div>
