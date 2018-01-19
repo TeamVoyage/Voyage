@@ -10,30 +10,38 @@ class Home extends React.Component {
     super(props);
   }
 
-  render() {
-    console.log('HOME PROPS: ', this.props);
-
-    let displayBoard = null;
-
-    // If user logged in, render <Board /> component
-    if (this.props.info.isLoggedIn) {
-      displayBoard = <Board />;
-    } else {
-      displayBoard = null;
+  // Only render results if search location provided
+  displaySearch() {
+    let display = null;
+    if (this.props.info.location) {
+      display =
+        <div>
+          <hr/>
+          <Results info={ this.props.info } />
+          <hr/>
+        </div>;
     }
+    return display;
+  }
+
+  // If User logged in, render Board component
+  displayBoard() {
+    let display = null;
+    if (this.props.info.isLoggedIn) {
+      display =
+        <div>
+          <Board />
+        </div>;
+    }
+    return display;
+  }
+
+  render() {
     return (
       <div>
         <SearchLocation go={ this.props.go }/>
-        <hr/>
-        <Results
-          info={ this.props.info }
-          // restaurants={ this.props.categories.restaurants }
-          hotels={ this.props.info.hotels }
-          events={ this.props.info.events }
-          // location={ this.props.categories.location }
-        />
-        <hr/>
-        { displayBoard }
+        { this.displaySearch() }
+        { this.displayBoard() }
       </div>
     );
   }
@@ -41,3 +49,6 @@ class Home extends React.Component {
 
 export default Home;
 
+        // <Results
+        //   info={ this.props.info }
+        // />
