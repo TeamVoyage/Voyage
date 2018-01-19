@@ -13,7 +13,7 @@ class Results extends React.Component {
     return (
       <div>
         <div>
-          <EatView restaurants={ this.props.restaurants }/>
+          <EatView info={ this.props.info }/>
         </div>
         <hr/>
         <div>
