@@ -67,12 +67,11 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <AppHeader />
         <Switch>
-          <RouteProps exact path='/' component={ Home } categories={ this.state } go={ this.go }/>
+          <RouteProps exact path='/' component={ Home } info={ this.state } go={ this.go }/>
           <RouteProps path='/login' component={ Login } />
           <RouteProps path='/user/:id' component={ User } />
         </Switch>
