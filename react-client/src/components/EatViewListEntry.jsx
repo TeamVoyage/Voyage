@@ -7,7 +7,6 @@ class EatViewListEntry extends React.Component {
   }
 
   handleClick(e) {
-    console.log('handleClick:', this.props.restaurant);
     if (this.props.info.isSignedIn) {
       this.props.addEventToUser(this.props.restaurant);
     } else {
@@ -16,7 +15,6 @@ class EatViewListEntry extends React.Component {
   }
 
   render() {
-    console.log('Eat Entry props: ', this.props);
     return (
       <div key={ this.props.restaurant.id }>
         <h4><a href={ this.props.restaurant.url }>{this.props.restaurant.name }</a></h4>

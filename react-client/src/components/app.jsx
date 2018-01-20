@@ -90,15 +90,12 @@ class App extends React.Component {
   }
 
   addEventToUser(event) {
-    console.log('APP event: ', event);
-    console.log('/users/' + this.state.userId + '/events');
-
     axios.post('/users/' + this.state.userId + '/events', {
       event: event
     })
       .then(response => {
-        console.log('Add to event results ', response);
-        // this.setState({userBoard: response.data});
+        // console.log('Add to event results ', response);
+        this.setState({ userBoard: response.data });
       })
       .catch(error => {
         console.log('Could not add this event', error);
@@ -126,7 +123,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('state', this.state);
     return (
       <div>
         <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
