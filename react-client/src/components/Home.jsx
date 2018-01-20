@@ -2,8 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import SearchLocation from './SearchLocation.jsx';
 import Results from './Results.jsx';
-// import Board from './Board.jsx';  // uncomment when created
-
+import Board from './Board.jsx';  // uncomment when created
 
 class Home extends React.Component {
   constructor(props) {
