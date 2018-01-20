@@ -5,12 +5,12 @@ mongoose.connect('mongodb://localhost/tripcollab');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('Connected to mongo')
+  console.log('Connected to mongo');
 });
 
 const logout = (sessionID, cb) => {
   User.update({ sessionID: sessionID }, { $set: { sessionID: '' }}, cb);
-}
+};
 
 let userSchema = mongoose.Schema({
   username: String,
@@ -38,13 +38,13 @@ const updateOrCreateUser = (query, cb) => {
         cb(err, user);
       });
     } else {
-      user.sessionID = query.sessionID
+      user.sessionID = query.sessionID;
       user.save(function(err, user) {
         cb(err, user);
       });
     }
   });
-}
+};
 
 const addUserEvent = (userId, event, cb) => {
   User.findOne({ _id: userId }, (err, user) => {
@@ -58,7 +58,7 @@ const addUserEvent = (userId, event, cb) => {
       cb(err);
     }
   });
-}
+};
 
 const deleteUserEvent = (userId, eventId, cb) => {
   User.findOne({ _id: userId }, (err, user) => {
@@ -74,13 +74,13 @@ const deleteUserEvent = (userId, eventId, cb) => {
       cb(err);
     }
   });
-}
+};
 
 const getUserEvents = (userId, cb) => {
   User.findOne({ _id: userId }, (err, user) => {
     cb(err, user.events);
   });
-}
+};
 
 module.exports.updateOrCreateUser = updateOrCreateUser;
 module.exports.User = User;

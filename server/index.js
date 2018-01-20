@@ -12,24 +12,24 @@ const cookieParser = require('cookie-parser');
 var User = db.User;
 
 passport.use(new Strategy({
-    clientID: process.env.FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: process.env.URL + '/login/facebook/return',
-    passReqToCallback: true
-  },
-    function(req, accessToken, refreshToken, profile, done) {
-      db.updateOrCreateUser({ fbId : profile.id, username: profile.displayName,  sessionID: req.sessionID }, function (err, user) {
-        return done(err, user);
-      });
-    }
-  ));
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: process.env.URL + '/login/facebook/return',
+  passReqToCallback: true
+},
+function(req, accessToken, refreshToken, profile, done) {
+  db.updateOrCreateUser({ fbId: profile.id, username: profile.displayName, sessionID: req.sessionID }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id,function(err,user){
+  User.findById(id, function(err, user) {
     done(err, user);
   });
 });
@@ -83,28 +83,28 @@ app.get('/search', (req, res) => {
 app.get('/users/:userId/events', (req, res) => {
   var userId = req.params.userId;
   db.getUserEvents(userId, (err, events) => {
-    if (err) res.sendStatus(403);
+    if (err) { res.sendStatus(403); }
     res.status(200).send(events);
-  })
-})
+  });
+});
 
 app.delete('/users/:userId/events/:eventId', (req, res) => {
   var userId = req.params.userId;
   var eventId = req.params.eventId;
   db.deleteUserEvent(userId, eventId, (err, events) => {
-    if (err) res.sendStatus(403);
+    if (err) { res.sendStatus(403); }
     res.status(200).send(events);
-  })
-})
+  });
+});
 
 app.post('/users/:userId/events', (req, res) => {
   var userId = req.params.userId;
   var event = req.body;
   db.addUserEvent(userId, event, (err, events) => {
-    if (err) res.sendStatus(403);
+    if (err) { res.sendStatus(403); }
     res.status(200).send(events);
-  })
-})
+  });
+});
 
 app.listen(port, () => {
   console.log('listening on port 3000!');

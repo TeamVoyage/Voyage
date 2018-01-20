@@ -1,8 +1,7 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
 import SearchLocation from './SearchLocation.jsx';
 import Results from './Results.jsx';
-import Board from './Board.jsx';  // uncomment when created
+import Board from './Board.jsx';
 
 class Home extends React.Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class Home extends React.Component {
   // or if one of the categories does not have an
   // empty array
   displaySearch() {
-    let display = null;
+    let display = <div></div>;
     if (this.props.info.location ||
         (this.props.info.categories.restaurants.length !== 0 ||
          this.props.info.categories.hotels.length !== 0 ||
@@ -21,7 +20,9 @@ class Home extends React.Component {
       display =
         <div>
           <hr/>
-          <Results info={ this.props.info } />
+          <Results
+            info={ this.props.info }
+            addEventToUser={ this.props.addEventToUser } />
           <hr/>
         </div>;
     }
@@ -30,7 +31,7 @@ class Home extends React.Component {
 
   // If User logged in, render Board component
   displayBoard() {
-    let display = null;
+    let display = <div></div>;
     if (this.props.info.isSignedIn) {
       display =
         <div>

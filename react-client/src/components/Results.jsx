@@ -1,34 +1,70 @@
 import React from 'react';
-import EatView from './EatView.jsx';
-import SleepView from './SleepView.jsx';
-import ExploreView from './ExploreView.jsx';
+import View from './View.jsx';
+// import EatView from './EatView.jsx';
+// import SleepView from './SleepView.jsx';
+// import ExploreView from './ExploreView.jsx';
 
-class Results extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
+const Results = (props) => {
+  return (
+    <div>
       <div>
-        <div>
-          {console.log('restaurants', this.props.info.categories.restaurants)}
-          <EatView info={ this.props.info }/>
-        }
-        </div>
-        <hr/>
-        <div>
-          {console.log('restaurants', this.props.info.categories.hotels)}
-          <SleepView info={ this.props.info } />
-        </div>
-        <hr/>
-        <div>
-         {console.log('restaurants', this.props.info.categories.events)}
-          <ExploreView info={ this.props.info } />
-        </div>
+        <h2>Food & Drinks | { props.info.location }</h2>
+        <View
+          info={ props.info }
+          category={ props.info.categories.restaurants }
+          addEventToUser={ props.addEventToUser } />
       </div>
-    );
-  }
-}
+      <hr/>
+      <div>
+        <h2>Accommodations | { props.info.location }</h2>
+        <View
+          info={ props.info }
+          category={ props.info.categories.hotels }
+          addEventToUser={ props.addEventToUser } />
+      </div>
+      <hr/>
+      <div>
+        <h2>Events | { props.info.location }</h2>
+        <View
+          info={ props.info }
+          category={ props.info.categories.events }
+          addEventToUser={ props.addEventToUser } />
+      </div>
+    </div>
+  );
+};
 
 export default Results;
+
+//   render() {
+//     return (
+//       <div>
+//         <div>
+//           <EatView
+//             info={ this.props.info }
+//             addEventToUser={ this.props.addEventToUser } />
+//         </div>
+//         <hr/>
+//         <div>
+//           <SleepView
+//             info={ this.props.info }
+//             addEventToUser={ this.props.addEventToUser } />
+//         </div>
+//         <hr/>
+//         <div>
+//           <ExploreView
+//             info={ this.props.info }
+//             addEventToUser={ this.props.addEventToUser } />
+//         </div>
+//         <div>
+//           <h2>Food & Drinks!!! | { this.props.info.location }</h2>
+//           <View
+//             info={ this.props.info }
+//             addEventToUser={ this.props.addEventToUser }
+//             category={ this.props.info.categories.restaurants }
+//           />
+//         </div>
+//       </div>
+//     );
+//   }
+// }

@@ -23,6 +23,7 @@ class App extends React.Component {
     };
     this.go = this.go.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.addEventToUser = this.addEventToUser.bind(this);
   }
 
   componentDidMount() {
@@ -34,8 +35,11 @@ class App extends React.Component {
     var that = this;
     $.ajax({
       url: '/checkSession',
-      success: function(isSignedIn) {
-        that.setState({ isSignedIn: isSignedIn });
+      success: function(userId) {
+        that.setState({
+          isSignedIn: true,
+          userId: userId
+        });
       },
       error: function() {
         console.log('check access token error');
@@ -52,7 +56,7 @@ class App extends React.Component {
     $.ajax({
       url: '/logOut',
       success: function(isSignedIn) {
-        that.setState({ isSignedIn: isSignedIn });
+        that.setState({ isSignedIn: false });
       },
       error: function() {
         console.log('logout error');
@@ -90,8 +94,8 @@ class App extends React.Component {
       event: event
     })
       .then(response => {
-        console.log('Add to event results ', response);
-        // this.setState({userBoard: response.data});
+        // console.log('Add to event results ', response);
+        this.setState({ userBoard: response.data });
       })
       .catch(error => {
         console.log('Could not add this event', error);
@@ -107,7 +111,7 @@ class App extends React.Component {
       params: {location: loc}
     })
       .then(response => {
-        console.log('Data from server', response);
+        // console.log('Data from server', response);
         this.setState({
           categories: response.data
         });
@@ -121,10 +125,20 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
+        <Login
+          handleLogOut={ this.handleLogOut.bind(this) }
+          isSignedIn={ this.state.isSignedIn }/>
         <Switch>
-          <RouteProps exact path='/' component={ Home } info={ this.state } go={ this.go }/>
-          <RouteProps path='/user/:id' component={ User } />
+          <RouteProps
+            exact path='/'
+            component={ Home }
+            info={ this.state }
+            go={ this.go }
+            addEventToUser={ this.addEventToUser }
+          />
+          <RouteProps
+            path='/user/:id'
+            component={ User } />
         </Switch>
       </div>
     );
