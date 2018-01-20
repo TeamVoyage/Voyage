@@ -99,7 +99,7 @@ app.delete('/users/:userId/events/:eventId', (req, res) => {
 
 app.post('/users/:userId/events', (req, res) => {
   var userId = req.params.userId;
-  var event = req.body;
+  var event = req.body.event;
   db.addUserEvent(userId, event, (err, events) => {
     if (err) { res.sendStatus(403); }
     res.status(200).send(events);
