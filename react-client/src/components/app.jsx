@@ -36,7 +36,6 @@ class App extends React.Component {
     $.ajax({
       url: '/checkSession',
       success: function(userId) {
-        console.log('userId:', userId);
         that.setState({
           isSignedIn: true,
           userId: userId
@@ -126,7 +125,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
+        <Login
+          handleLogOut={ this.handleLogOut.bind(this) }
+          isSignedIn={ this.state.isSignedIn }/>
         <Switch>
           <RouteProps
             exact path='/'
@@ -135,7 +136,9 @@ class App extends React.Component {
             go={ this.go }
             addEventToUser={ this.addEventToUser }
           />
-          <RouteProps path='/user/:id' component={ User } />
+          <RouteProps
+            path='/user/:id'
+            component={ User } />
         </Switch>
       </div>
     );

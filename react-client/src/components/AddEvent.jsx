@@ -7,7 +7,6 @@ class AddEvent extends React.Component {
   }
 
   handleClick(e) {
-    console.log('event', this.props.event);
     if (this.props.isSignedIn) {
       this.props.addEventToUser(this.props.event);
     } else {

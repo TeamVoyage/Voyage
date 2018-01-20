@@ -2,7 +2,6 @@ import React from 'react';
 import ViewEntry from './ViewEntry.jsx';
 
 const View = (props) => {
-  console.log('View Props:', props);
   return (
     <div>
       {props.category.map(event =>

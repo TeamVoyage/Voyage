@@ -1,10 +1,7 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
 import SearchLocation from './SearchLocation.jsx';
 import Results from './Results.jsx';
 import Board from './Board.jsx';
-import User from './User.jsx';
-
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,7 +20,9 @@ class Home extends React.Component {
       display =
         <div>
           <hr/>
-          <Results info={ this.props.info } addEventToUser={ this.props.addEventToUser } />
+          <Results
+            info={ this.props.info }
+            addEventToUser={ this.props.addEventToUser } />
           <hr/>
         </div>;
     }
@@ -32,10 +31,12 @@ class Home extends React.Component {
 
   // If User logged in, render Board component
   displayBoard() {
-    let display = null;
+    let display = <div></div>;
     if (this.props.info.isSignedIn) {
-      display = <Board />;
-
+      display =
+        <div>
+          <Board />
+        </div>;
     }
     return display;
   }
@@ -44,12 +45,8 @@ class Home extends React.Component {
     return (
       <div>
         <SearchLocation go={ this.props.go }/>
-
         { this.displaySearch() }
-
-        <div>
-          { this.displayBoard() }
-        </div>
+        { this.displayBoard() }
       </div>
     );
   }
