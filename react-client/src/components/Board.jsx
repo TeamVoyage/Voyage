@@ -1,22 +1,20 @@
 import React from 'react';
 import Like from './Like.jsx';
 
-class Board extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <h2>THIS IS MAH BOARD</h2>
-        <Like/>
-        <Like/>
-        <Like/>
-        <Like/>
-      </div>
-    );
-  }
-}
+const Board = (props) => {
+  console.log('Board', props);
+  return (
+    <div>
+      {props.board.map(event =>
+        <Like
+          key={ event._id }
+          event={ event }
+          info={ props.info }
+          deleteEventFromUser={ props.deleteEventFromUser }
+        />
+      )}
+    </div>
+  );
+};
 
 export default Board;

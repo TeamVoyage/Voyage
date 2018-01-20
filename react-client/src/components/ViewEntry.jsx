@@ -15,8 +15,9 @@ class ViewEntry extends React.Component {
   }
 
   render() {
+    console.log('props', this.props);
     return (
-      <div>
+      <div key={ this.props.event.id }>
         <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
         <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
         <button type="button" onClick={ this.handleClick }>like</button>
