@@ -73,14 +73,16 @@ class App extends React.Component {
   }
 
   getBoard() {
-    axios.get('/users/' + this.state.userId + '/events')
-      .then(response => {
-        console.log('User board ', response);
-        // this.setState({userBoard: response.data});
-      })
-      .catch(error => {
-        console.log('could not retreieve board');
-      });
+    if (this.state.isSignedIn) {
+      axios.get('/users/' + this.state.userId + '/events')
+        .then(response => {
+          console.log('User board ', response);
+          // this.setState({userBoard: response.data});
+        })
+        .catch(error => {
+          console.log('could not retreieve board');
+        });
+    }
   }
 
   addEventToUser(event) {
