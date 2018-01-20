@@ -68,7 +68,11 @@ const deleteUserEvent = (userId, eventId, cb) => {
       });
       user.events = newEvents;
       user.save(function(err, user) {
-        cb(err, user.events);
+        if (err) {
+          cb(err);
+        } else {
+          cb(null, user.events);
+        }
       });
     } else {
       cb(err);
@@ -78,7 +82,11 @@ const deleteUserEvent = (userId, eventId, cb) => {
 
 const getUserEvents = (userId, cb) => {
   User.findOne({ _id: userId }, (err, user) => {
-    cb(err, user.events);
+    if (user) {
+      cb(null, user.events);
+    } else {
+      cb(err);
+    }
   });
 };
 
