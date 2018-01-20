@@ -27,6 +27,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.signIn();
+    this.getBoard();
   }
 
   signIn() {
@@ -58,62 +59,55 @@ class App extends React.Component {
       }
     });
   }
+  deleteEventFromUser(eventId) {
+    axios.delete('/users/' + this.state.userId + '/events/' + eventId)
+      .then(response => {
+        console.log('Deleted from user ', response);
+        // this.setState({userBoard: response.data});
+      })
+      .catch(error => {
+        console.log('Could not delete ', error);
+      });
+  }
+
+  getBoard() {
+    axios.get('/users/' + this.state.userId + '/events')
+      .then(response => {
+        console.log('User board ', response);
+        // this.setState({userBoard: response.data});
+      })
+      .catch(error => {
+        console.log('could not retreieve board');
+      });
+  }
+
+  addEventToUser(event) {
+    axios.post('/users/' + this.state.userId, {
+      event: event
+    })
+      .then(response => {
+        console.log('Add to event results ', response);
+        // this.setState({userBoard: response.data});
+      })
+      .catch(error => {
+        console.log('Could not add this event', error);
+      });
+  }
 
   go(loc) {
     this.setState({
       location: loc
     });
 
-    axios.post('/eat', {
-      location: loc
+    axios.get('/search', {
+      params: {location: loc}
     })
       .then(response => {
-        console.log('eat data from server', response);
-        this.setState({
-          restaurants: response.data
-        });
+        console.log('Data from server', response);
+        // this.setState({});
       })
       .catch(error => {
-        console.log('error..!!', error);
-      });
-
-    axios.post('/sleep', {
-      location: loc
-    })
-      .then(response => {
-        console.log('sleep data from server', response);
-        this.setState({
-          hotels: response.data
-        });
-      })
-      .catch(error => {
-        console.log('error..!!', error);
-      });
-
-    axios.post('/explore', {
-      location: loc
-    })
-      .then(response => {
-        console.log('explore data from server', response);
-        this.setState({
-          events: response.data
-        });
-      })
-      .catch(error => {
-        console.log('error..!!', error);
-      });
-
-    axios.post('/party', {
-      location: loc
-    })
-      .then(response => {
-        console.log('party data from server', response);
-        this.setState({
-          events: this.state.events.concat(response.data)
-        });
-      })
-      .catch(error => {
-        console.log('error..!!', error);
+        console.log('Error, could not search ', error);
       });
   }
 
