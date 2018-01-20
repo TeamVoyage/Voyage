@@ -12,7 +12,8 @@ const Results = (props) => {
         <View
           info={ props.info }
           category={ props.info.categories.restaurants }
-          addEventToUser={ props.addEventToUser } />
+          addEventToUser={ props.addEventToUser }
+        />
       </div>
       <hr/>
       <div>

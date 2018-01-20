@@ -2,9 +2,10 @@ import React from 'react';
 import RouteProps from 'react-route-props';
 import { Route, Switch, indexRoute } from 'react-router-dom';
 import axios from 'axios';
-import Home from './Home.jsx';
 import Login from './Login.jsx';
-import User from './User.jsx';
+import SearchLocation from './SearchLocation.jsx';
+import Results from './Results.jsx';
+import Board from './Board.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
@@ -119,7 +120,39 @@ class App extends React.Component {
       .catch(error => {
         console.log('Error, could not search ', error);
       });
+  }
 
+
+  displaySearch() {
+    let display = <div></div>;
+    if (this.state.location ||
+        (this.state.categories.restaurants.length !== 0 ||
+         this.state.categories.hotels.length !== 0 ||
+         this.state.categories.events.length !== 0)) {
+      display =
+        <div>
+          <hr/>
+          <Results
+            info={ this.state }
+            addEventToUser={ this.addEventToUser } />
+          <hr/>
+        </div>;
+    }
+    return display;
+  }
+
+  // If User logged in, render Board component
+  displayBoard() {
+    let display = <div></div>;
+    if (this.state.isSignedIn) {
+      display =
+        <div>
+          <Board
+            info={ this.state }
+            deleteEventFromUser={ this.deleteEventFromUser }/>
+        </div>;
+    }
+    return display;
   }
 
   render() {
@@ -127,19 +160,11 @@ class App extends React.Component {
       <div>
         <Login
           handleLogOut={ this.handleLogOut.bind(this) }
-          isSignedIn={ this.state.isSignedIn }/>
-        <Switch>
-          <RouteProps
-            exact path='/'
-            component={ Home }
-            info={ this.state }
-            go={ this.go }
-            addEventToUser={ this.addEventToUser }
-          />
-          <RouteProps
-            path='/user/:id'
-            component={ User } />
-        </Switch>
+          isSignedIn={ this.state.isSignedIn }
+        />
+        <SearchLocation go={ this.go }/>
+        { this.displaySearch() }
+        { this.displayBoard() }
       </div>
     );
   }
