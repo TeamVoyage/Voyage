@@ -82,7 +82,7 @@ class App extends React.Component {
       axios.get('/users/' + this.state.userId + '/events')
         .then(response => {
           console.log('User board ', response);
-          // this.setState({userBoard: response.data});
+          this.setState({ userBoard: response.data });
         })
         .catch(error => {
           console.log('could not retreieve board');
@@ -121,7 +121,6 @@ class App extends React.Component {
         console.log('Error, could not search ', error);
       });
   }
-
 
   displaySearch() {
     let display = <div></div>;
