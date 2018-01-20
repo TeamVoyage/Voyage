@@ -73,9 +73,9 @@ app.get('/logOut', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-  var location = req.params || '';
+  var location = req.query.location || '';
   utils.search(location, function(err, results) {
-    // error handler
+    // error handlerserver
     res.status(200).send(results);
   });
 });
