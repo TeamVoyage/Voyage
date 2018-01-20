@@ -106,7 +106,9 @@ class App extends React.Component {
     })
       .then(response => {
         console.log('Data from server', response);
-        // this.setState({});
+        this.setState({
+          categories: response.data
+        });
       })
       .catch(error => {
         console.log('Error, could not search ', error);
