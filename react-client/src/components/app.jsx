@@ -23,6 +23,7 @@ class App extends React.Component {
     };
     this.go = this.go.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.addEventToUser = this.addEventToUser.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +87,9 @@ class App extends React.Component {
   }
 
   addEventToUser(event) {
+    console.log('APP event: ', event);
+    console.log('/users/' + this.state.userId + '/events');
+
     axios.post('/users/' + this.state.userId + '/events', {
       event: event
     })
@@ -107,7 +111,7 @@ class App extends React.Component {
       params: {location: loc}
     })
       .then(response => {
-        console.log('Data from server', response);
+        // console.log('Data from server', response);
         this.setState({
           categories: response.data
         });
@@ -123,7 +127,13 @@ class App extends React.Component {
       <div>
         <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
         <Switch>
-          <RouteProps exact path='/' component={ Home } info={ this.state } go={ this.go }/>
+          <RouteProps
+            exact path='/'
+            component={ Home }
+            info={ this.state }
+            go={ this.go }
+            addEventToUser={ this.addEventToUser }
+          />
           <RouteProps path='/user/:id' component={ User } />
         </Switch>
       </div>

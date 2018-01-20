@@ -12,19 +12,21 @@ class Results extends React.Component {
     return (
       <div>
         <div>
-          {console.log('restaurants', this.props.info.categories.restaurants)}
-          <EatView info={ this.props.info }/>
-        }
+          <EatView
+            info={ this.props.info }
+            addEventToUser={ this.props.addEventToUser } />
         </div>
         <hr/>
         <div>
-          {console.log('restaurants', this.props.info.categories.hotels)}
-          <SleepView info={ this.props.info } />
+          <SleepView
+            info={ this.props.info }
+            addEventToUser={ this.props.addEventToUser } />
         </div>
         <hr/>
         <div>
-         {console.log('restaurants', this.props.info.categories.events)}
-          <ExploreView info={ this.props.info } />
+          <ExploreView
+            info={ this.props.info }
+            addEventToUser={ this.props.addEventToUser } />
         </div>
       </div>
     );
