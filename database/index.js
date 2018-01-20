@@ -12,83 +12,19 @@ const logout = (sessionID, cb) => {
   User.update({ sessionID: sessionID }, { $set: { sessionID: '' }}, cb);
 }
 
-let restaurantSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let hotelSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let eventSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let attractionSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
 let userSchema = mongoose.Schema({
   username: String,
   fbId: String,
   sessionID: String,
-  trips: Array
-});
-
-let boardSchema = mongoose.Schema({
-  id: Number,
-  likes: [eventSchema]
+  events: [{
+    id: String,
+    name: String,
+    image_url: String,
+    url: String
+  }]
 });
 
 const User = mongoose.model('User', userSchema);
-const Trip = mongoose.model('Trip', boardSchema);
-
-
-let saveTrip = (tripInfo, cb) => {
-  const trip = new Trip({
-    id: id, //which id will be used? User or Facebook or Mongoose?
-    likes: tripInfo
-  });
-
-  const trip_id = trip._id;
-  console.log('trip id: ', trip._id);
-
-  trip.save(err => {
-    if (err) {
-      console.log(err);
-    } else {
-      cb();
-    }
-  });
-};
-
-let deleteTrip = (id, cb) => {
-  Trip.findByIdandRemove(id, (err, deleted) => {
-    if (err) {
-      cb(err, null);
-    } else {
-      cb(null, deleted);
-    }
-  })
-};
-
-let getAllTrips = (cb) => {
-    Trip.find({}, (err, trips) => {
-      if (err) {
-        return handleError(err);
-      } else {
-        cb(trips);
-      }
-    });
-  };
 
 const updateOrCreateUser = (query, cb) => {
   User.findOne({ fbId: query.fbId }, (err, user) => {
@@ -110,42 +46,45 @@ const updateOrCreateUser = (query, cb) => {
   });
 }
 
+const addUserEvent = (userId, event, cb) => {
+  User.findOne({ _id: userId }, (err, user) => {
+    if (user) {
+      var newEvents = user.events.concat([event]);
+      user.events = newEvents;
+      user.save(function(err, user) {
+        cb(err, user.events);
+      });
+    } else {
+      cb(err);
+    }
+  });
+}
 
-module.exports.deleteTrip = deleteTrip;
-module.exports.saveTrip = saveTrip;
-module.exports.getAllTrips = getAllTrips;
+const deleteUserEvent = (userId, eventId, cb) => {
+  User.findOne({ _id: userId }, (err, user) => {
+    if (user) {
+      var newEvents = user.events.filter(function(event) {
+        return event.id !== eventId;
+      });
+      user.events = newEvents;
+      user.save(function(err, user) {
+        cb(err, user.events);
+      });
+    } else {
+      cb(err);
+    }
+  });
+}
+
+const getUserEvents = (userId, cb) => {
+  User.findOne({ _id: userId }, (err, user) => {
+    cb(err, user.events);
+  });
+}
+
 module.exports.updateOrCreateUser = updateOrCreateUser;
 module.exports.User = User;
-module.exports.logout = logout
-
-// // dummy data for testing
-// const testTrip = {
-//   name: 'example trip2',
-//   location: 'chicago',
-//   restaurants: [{name: 'Burger King', price: 1, rating: 3 }],
-//   hotels: [{name: 'Hyatt', price: 2, rating: 3 }],
-//   events: [{name: 'Some Comedy Show'}],
-//   attractions: [{name: 'Space Musuem'}]
-// };
-//
-// const testUser = new User({
-//   googleId: 'daniel',
-//   username: 'kelly',
-//   trips: []
-// });
-//
-// testUser.save(err => {
-//   if(err) console.log(err);
-// });
-
-  // User.find({googleId: currentUser}, (err, user) => {
-  //   user[0].trips = user[0].trips.concat(trip_id);
-  //   user[0].save(err => {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //   });
-  // });
-
-  // // test db functionality
-// saveTrip(testTrip2, 'daniel');
+module.exports.logout = logout;
+module.exports.getUserEvents = getUserEvents;
+module.exports.addUserEvent = addUserEvent;
+module.exports.deleteUserEvent = deleteUserEvent;
