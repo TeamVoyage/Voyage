@@ -35,8 +35,11 @@ class App extends React.Component {
     var that = this;
     $.ajax({
       url: '/checkSession',
-      success: function(isSignedIn) {
-        that.setState({ isSignedIn: isSignedIn });
+      success: function(userId) {
+        that.setState({
+          isSignedIn: true,
+          userId: userId
+        });
       },
       error: function() {
         console.log('check access token error');
@@ -123,6 +126,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('state', this.state);
     return (
       <div>
         <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
