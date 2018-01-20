@@ -6,6 +6,7 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import User from './User.jsx';
 import $ from 'jquery';
+import Sample from '../../../database/';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,11 +14,12 @@ class App extends React.Component {
     this.state = {
       userId: '',
       userBoard: [],
-      categories: {
-        restaurants: [],
-        hotels: [],
-        events: []
-      },
+      categories: Sample,
+      // categories: {
+      //   restaurants: [],
+      //   hotels: [],
+      //   events: []
+      // },
       isSignedIn: false,
       location: ''
     };
@@ -112,7 +114,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('this.state: ', JSON.stringify(this.state, null, 2));
     return (
       <div>
         <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
