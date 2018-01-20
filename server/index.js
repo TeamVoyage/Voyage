@@ -12,25 +12,24 @@ const cookieParser = require('cookie-parser');
 var User = db.User;
 
 passport.use(new Strategy({
-  clientID: process.env.FACEBOOK_CLIENT_ID,
-  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: process.env.URL + '/login/facebook/return',
-  passReqToCallback: true
-},
-function(req, accessToken, refreshToken, profile, done) {
-  db.updateOrCreateUser({ fbId: profile.id, username: profile.displayName,
-    sessionID: req.sessionID }, function (err, user) {
-    return done(err, user);
-  });
-}
-));
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.URL + '/login/facebook/return',
+    passReqToCallback: true
+  },
+    function(req, accessToken, refreshToken, profile, done) {
+      db.updateOrCreateUser({ fbId : profile.id, username: profile.displayName,  sessionID: req.sessionID }, function (err, user) {
+        return done(err, user);
+      });
+    }
+  ));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+  User.findById(id,function(err,user){
     done(err, user);
   });
 });
@@ -81,121 +80,33 @@ app.get('/search', (req, res) => {
   });
 });
 
-app.get('/users/:id/events', (req, res) => {
-  console.log('--------------', req.params.id);
-  // send back new board ie all likes of user
-});
+app.get('/users/:userId/events', (req, res) => {
+  var userId = req.params.userId;
+  db.getUserEvents(userId, (err, events) => {
+    if (err) res.sendStatus(403);
+    res.status(200).send(events);
+  })
+})
 
 app.delete('/users/:userId/events/:eventId', (req, res) => {
-  console.log('--------------', req.params.userId);
-  console.log('--------------', req.params.eventId);
-  // delete event from user
-  // send back whole new board ie all likes of user
-});
+  var userId = req.params.userId;
+  var eventId = req.params.eventId;
+  db.deleteUserEvent(userId, eventId, (err, events) => {
+    if (err) res.sendStatus(403);
+    res.status(200).send(events);
+  })
+})
 
-app.post('/users/:userId/events/:eventId', (req, res) => {
-  console.log('--------------', req.params.userId);
-  console.log('--------------', req.params.eventId);
-  console.log('--------------', req.body);
-  // add whole event to user
-  // return whole board
-});
+app.post('/users/:userId/events', (req, res) => {
+  var userId = req.params.userId;
+  var event = req.body;
+  db.addUserEvent(userId, event, (err, events) => {
+    if (err) res.sendStatus(403);
+    res.status(200).send(events);
+  })
+})
 
 app.listen(port, () => {
   console.log('listening on port 3000!');
 });
 
-
-
-
-//app.set('view engine', 'ejs');
-
-// app.use('/auth', authRoutes);
-
-// location, price, categories populated with dummy data unless client sends
-// params in req.body
-
-// app.get('/auth/home', (req, res) => {
-//   res.render('home');
-// });
-
-// app.post('/eat', (req, res) => {
-//   console.log('eat endpoint hit');
-//   const term = 'restaurants';
-//   const options = {
-//     location: req.body.location || 'chicago',
-//     price: '1,2,3,4',
-//     term: term,
-//     categories: req.body.categories || '',
-//     api: 'yelp'
-//   };
-
-//   utils.getBusinessesOrEvents(options, (data) => {
-//     res.send(data);
-//   });
-// });
-
-// app.post('/explore', (req, res) => {
-//   console.log('explore endpoint hit');
-//   const term = 'tourism';
-//   const options = {
-//     location: req.body.location || 'newyork',
-//     term: term,
-//     // categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
-//     api: 'yelp'
-//   };
-
-//   utils.getBusinessesOrEvents(options, (data) => {
-//     res.send(data);
-//   });
-// });
-
-// app.post('/party', (req, res) => {
-//   console.log('party endpoint hit');
-//   const options = {
-//     location: req.body.location || 'chicago',
-//     api: 'eventBrite'
-//   };
-
-//   utils.getBusinessesOrEvents(options, (data) => {
-//     res.send(data);
-//   });
-// });
-
-// app.post('/sleep', (req, res) => {
-//   console.log('sleep endpoint hit');
-//   const term = 'hotels';
-
-//   const options = {
-//     location: req.body.location || 'philadelphia',
-//     price: req.body.price || '3',
-//     term: term,
-//     api: 'yelp'
-//   };
-
-//   utils.getBusinessesOrEvents(options, (data) => {
-//     res.send(data);
-//   });
-// });
-
-// app.post('/trips', (req, res) => {
-//   db.saveTrip(req.body, () => {
-//     res.sendStatus(201);
-//   });
-// });
-
-// app.get('/trips', (req, res) => {
-//   db.getAllTrips((trips) => {
-//     res.send(trips);
-//   });
-// });
-
-// app.delete('/trips', (req, res) => {
-//   db.deleteTrip(req.params.id, (err, response) => {
-//     if (err) {
-//       res.sendStatus(501);
-//     } else {
-//       res.sendStatus(200);
-//     }
-//   });
-// });
