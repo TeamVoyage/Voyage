@@ -84,7 +84,7 @@ class App extends React.Component {
   }
 
   addEventToUser(event) {
-    axios.post('/users/' + this.state.userId, {
+    axios.post('/users/' + this.state.userId + '/events', {
       event: event
     })
       .then(response => {
