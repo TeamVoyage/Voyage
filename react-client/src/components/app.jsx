@@ -36,6 +36,7 @@ class App extends React.Component {
     $.ajax({
       url: '/checkSession',
       success: function(userId) {
+        console.log('userId:', userId);
         that.setState({
           isSignedIn: true,
           userId: userId
@@ -56,7 +57,7 @@ class App extends React.Component {
     $.ajax({
       url: '/logOut',
       success: function(isSignedIn) {
-        that.setState({ isSignedIn: isSignedIn });
+        that.setState({ isSignedIn: false });
       },
       error: function() {
         console.log('logout error');
