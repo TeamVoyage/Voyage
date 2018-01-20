@@ -59,11 +59,13 @@ class App extends React.Component {
       }
     });
   }
+
   deleteEventFromUser(eventId) {
     axios.delete('/users/' + this.state.userId + '/events/' + eventId)
       .then(response => {
         console.log('Deleted from user ', response);
         // this.setState({userBoard: response.data});
+
       })
       .catch(error => {
         console.log('Could not delete ', error);
@@ -104,15 +106,17 @@ class App extends React.Component {
     })
       .then(response => {
         console.log('Data from server', response);
-        // this.setState({});
+        this.setState({
+          categories: response.data
+        });
       })
       .catch(error => {
         console.log('Error, could not search ', error);
       });
+
   }
 
   render() {
-    console.log('this.state: ', JSON.stringify(this.state, null, 2));
     return (
       <div>
         <Login handleLogOut={ this.handleLogOut.bind(this) } isSignedIn={ this.state.isSignedIn }/>
