@@ -12,24 +12,25 @@ const cookieParser = require('cookie-parser');
 var User = db.User;
 
 passport.use(new Strategy({
-    clientID: process.env.FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: process.env.URL + '/login/facebook/return',
-    passReqToCallback: true
-  },
-    function(req, accessToken, refreshToken, profile, done) {
-      db.updateOrCreateUser({ fbId : profile.id, username: profile.displayName,  sessionID: req.sessionID }, function (err, user) {
-        return done(err, user);
-      });
-    }
-  ));
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: process.env.URL + '/login/facebook/return',
+  passReqToCallback: true
+},
+function(req, accessToken, refreshToken, profile, done) {
+  db.updateOrCreateUser({ fbId: profile.id, username: profile.displayName,
+    sessionID: req.sessionID }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id,function(err,user){
+  User.findById(id, function(err, user) {
     done(err, user);
   });
 });
@@ -81,24 +82,24 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/users/:id/events', (req, res) => {
-  console.log('--------------', req.params.id)
+  console.log('--------------', req.params.id);
   // send back new board ie all likes of user
-})
+});
 
 app.delete('/users/:userId/events/:eventId', (req, res) => {
-  console.log('--------------', req.params.userId)
-  console.log('--------------', req.params.eventId)
+  console.log('--------------', req.params.userId);
+  console.log('--------------', req.params.eventId);
   // delete event from user
   // send back whole new board ie all likes of user
-})
+});
 
 app.post('/users/:userId/events/:eventId', (req, res) => {
-  console.log('--------------', req.params.userId)
-  console.log('--------------', req.params.eventId)
-  console.log('--------------', req.body)
+  console.log('--------------', req.params.userId);
+  console.log('--------------', req.params.eventId);
+  console.log('--------------', req.body);
   // add whole event to user
   // return whole board
-})
+});
 
 app.listen(port, () => {
   console.log('listening on port 3000!');

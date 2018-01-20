@@ -6,7 +6,6 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import User from './User.jsx';
 import $ from 'jquery';
-import Sample from '../../../database/';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,12 +13,11 @@ class App extends React.Component {
     this.state = {
       userId: '',
       userBoard: [],
-      categories: Sample,
-      // categories: {
-      //   restaurants: [],
-      //   hotels: [],
-      //   events: []
-      // },
+      categories: {
+        restaurants: [],
+        hotels: [],
+        events: []
+      },
       isSignedIn: false,
       location: ''
     };
@@ -61,11 +59,13 @@ class App extends React.Component {
       }
     });
   }
+
   deleteEventFromUser(eventId) {
     axios.delete('/users/' + this.state.userId + '/events/' + eventId)
       .then(response => {
         console.log('Deleted from user ', response);
         // this.setState({userBoard: response.data});
+
       })
       .catch(error => {
         console.log('Could not delete ', error);
@@ -111,6 +111,7 @@ class App extends React.Component {
       .catch(error => {
         console.log('Error, could not search ', error);
       });
+
   }
 
   render() {
