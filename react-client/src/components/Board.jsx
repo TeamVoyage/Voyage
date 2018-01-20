@@ -2,11 +2,12 @@ import React from 'react';
 import Like from './Like.jsx';
 
 const Board = (props) => {
+  console.log('Board', props);
   return (
     <div>
-      {props.category.map(event =>
+      {props.board.map(event =>
         <Like
-          key={ event.id }
+          key={ event._id }
           event={ event }
           info={ props.info }
           deleteEventFromUser={ props.deleteEventFromUser }

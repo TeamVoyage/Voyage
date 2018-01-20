@@ -14,13 +14,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       userId: '',
-      userBoard: [{
-        id: "the-alcove-sunnyside",
-        image_url: "https://s3-media2.fl.yelpcdn.com/bphoto/n0ofwdV91hEgz1hNxON8vA/o.jpg",
-        name: "The Alcove",
-        url: "https://www.yelp.com/biz/the-alcove-sunnyside?adjust_creative=gPuhcPOmccHhGEqwdvqJwg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=gPuhcPOmccHhGEqwdvqJwg",
-        _id: "5a63b0befe905504b5954e54"
-      }],
+      userBoard: [],
+      // userBoard: [{
+      //   id: "the-alcove-sunnyside",
+      //   image_url: "https://s3-media2.fl.yelpcdn.com/bphoto/n0ofwdV91hEgz1hNxON8vA/o.jpg",
+      //   name: "The Alcove",
+      //   url: "https://www.yelp.com/biz/the-alcove-sunnyside?adjust_creative=gPuhcPOmccHhGEqwdvqJwg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=gPuhcPOmccHhGEqwdvqJwg",
+      //   _id: "5a63b0befe905504b5954e54"
+      // }],
       categories: {
         restaurants: [],
         hotels: [],
@@ -102,7 +103,7 @@ class App extends React.Component {
       event: event
     })
       .then(response => {
-        console.log('Add to event results ', response);
+        console.log('Add to event results ', response.data);
         this.setState({ userBoard: response.data });
       })
       .catch(error => {
@@ -156,9 +157,10 @@ class App extends React.Component {
     if (this.state.isSignedIn && this.state.userBoard.length !== 0) {
       display =
         <div>
+          <h2>My Board</h2>
           <Board
             info={ this.state }
-            category={ this.state.userBoard }
+            board={ this.state.userBoard }
             deleteEventFromUser={ this.deleteEventFromUser }/>
         </div>;
     } else if (this.state.isSignedIn && this.state.userBoard.length === 0) {
@@ -171,6 +173,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('state', this.state);
     return (
       <div>
         <Login
