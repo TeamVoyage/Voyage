@@ -18,7 +18,7 @@ const Results = (props) => {
           addEventToUser={ props.addEventToUser }
         />
       </div>
-    )
+    );
   }
   if (props.show.sleep) {
     sleepDiv = (
@@ -29,7 +29,7 @@ const Results = (props) => {
           category={ props.info.categories.hotels }
           addEventToUser={ props.addEventToUser } />
       </div>
-    )
+    );
   }
   if (props.show.do) {
     doDiv = (
@@ -40,7 +40,7 @@ const Results = (props) => {
           category={ props.info.categories.events }
           addEventToUser={ props.addEventToUser } />
       </div>
-    )
+    );
   }
   return (
     <div>
