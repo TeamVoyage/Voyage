@@ -32,12 +32,12 @@ class ViewEntry extends React.Component {
                       Kristy is an art director living in New York.
                     </div>
 
-                    <div className="ui labeled button" tabindex="0">
+                    <div className="ui labeled button" tabIndex="0">
                       <div className="ui button" onClick={ this.handleClick }>
                         <i className="heart icon"></i> Like
                       </div>
                     </div>
-                    
+
                   </div>
               </div>
             </div>

@@ -5,8 +5,11 @@ import View from './View.jsx';
 // import ExploreView from './ExploreView.jsx';
 
 const Results = (props) => {
-  return (
-    <div>
+  var eatDiv;
+  var sleepDiv;
+  var doDiv;
+  if (props.show.eat) {
+    eatDiv = (
       <div>
         <h2>Food & Drinks | { props.info.location }</h2>
         <View
@@ -15,7 +18,10 @@ const Results = (props) => {
           addEventToUser={ props.addEventToUser }
         />
       </div>
-      <hr/>
+    )
+  }
+  if (props.show.sleep) {
+    sleepDiv = (
       <div>
         <h2>Accommodations | { props.info.location }</h2>
         <View
@@ -23,7 +29,10 @@ const Results = (props) => {
           category={ props.info.categories.hotels }
           addEventToUser={ props.addEventToUser } />
       </div>
-      <hr/>
+    )
+  }
+  if (props.show.do) {
+    doDiv = (
       <div>
         <h2>Events | { props.info.location }</h2>
         <View
@@ -31,6 +40,13 @@ const Results = (props) => {
           category={ props.info.categories.events }
           addEventToUser={ props.addEventToUser } />
       </div>
+    )
+  }
+  return (
+    <div>
+      { eatDiv }
+      { sleepDiv }
+      { doDiv }
     </div>
   );
 };
