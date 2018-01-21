@@ -15,9 +15,8 @@ class Like extends React.Component {
   }
 
   render() {
-    console.log('props', this.props);
     return (
-      <div className="four wide column" key={ this.props.event._id }>
+      <div className="center aligned row" key={ this.props.event._id }>
         <div className="ui card">
           <div className="image">
             <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
