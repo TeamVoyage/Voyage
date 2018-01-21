@@ -7,9 +7,8 @@ class Board extends React.Component {
   }
 
   render() {
-
     return (
-      <div>
+      <div className="ui four column grid">
         {this.props.board.map(event =>
           <Like
             key={ event._id }

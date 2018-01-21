@@ -1,6 +1,23 @@
+.Site {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1 0 auto;
+  padding: var(--space) var(--space) 0;
+  width: 100%;
+}
+
+.Site > .footer {
+  flex: 1;
+}
+
 .ui.container{
   height: 500px;
   width: 100%;
+  flex: 1 0 auto;
   font-family: 'Roboto', helvetica, sans-serif;
   background-image: url("https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=2100&q=80");
   background-size: cover;
@@ -34,12 +51,11 @@
 }
 
 .ui.footer.segment {
-  position: fixed;
   bottom: 0;
   width: 100%;
   margin-bottom: 0;
   background-color: #7e7f86;
-  min-height: 300px;
+  max-height: 300px;
   text-align: center;
   padding-top: 25px;
 }
@@ -62,3 +78,4 @@ h3.ui.inverted.header {
   font-size: 1.2em;
   margin-top: 0;
 }
+

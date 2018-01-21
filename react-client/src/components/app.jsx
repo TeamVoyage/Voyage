@@ -16,13 +16,6 @@ class App extends React.Component {
       userId: '',
       name: [],
       userBoard: [],
-      // userBoard: [{
-      //   id: "the-alcove-sunnyside",
-      //   image_url: "https://s3-media2.fl.yelpcdn.com/bphoto/n0ofwdV91hEgz1hNxON8vA/o.jpg",
-      //   name: "The Alcove",
-      //   url: "https://www.yelp.com/biz/the-alcove-sunnyside?adjust_creative=gPuhcPOmccHhGEqwdvqJwg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=gPuhcPOmccHhGEqwdvqJwg",
-      //   _id: "5a63b0befe905504b5954e54"
-      // }],
       categories: {
         restaurants: [],
         hotels: [],
@@ -164,12 +157,13 @@ class App extends React.Component {
 
   displayBoard() {
     let display =
-      <div>
+      <div className="ui middle aligned segment">
         <h1>Please sign in to see your board!</h1>
       </div>;
+
     if (this.state.isSignedIn && this.state.userBoard.length !== 0) {
       display =
-        <div>
+        <div className="ui middle aligned raised segment">
           <h2>My Board</h2>
           <Board
             info={ this.state }
@@ -178,7 +172,7 @@ class App extends React.Component {
         </div>;
     } else if (this.state.isSignedIn && this.state.userBoard.length === 0) {
       display =
-        <div>
+        <div className="ui middle aligned segment">
           <h1>Your board is empty</h1>
         </div>;
     }
@@ -209,8 +203,11 @@ class App extends React.Component {
           handleFilterClick={ this.handleFilterClicked.bind(this) }
           show={ this.state.show }
         />
+
         { this.displaySearch() }
+
         { this.displayBoard() }
+
       </div>
     );
   }
