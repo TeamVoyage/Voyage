@@ -156,6 +156,7 @@ class App extends React.Component {
   displayBoard() {
     let display =
       <div className="ui middle aligned segment">
+
         <h1>Please sign in to see your board!</h1>
       </div>;
 

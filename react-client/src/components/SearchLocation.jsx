@@ -33,22 +33,22 @@ class SearchLocation extends React.Component {
   }
 
   isSelected(filter) {
-    return this.props.show[filter] ? 'ui blue button' : 'ui inverted button'
+    return this.props.show[filter] ? 'ui grey button' : 'ui inverted button';
   }
 
   handleEatFilterClick() {
     document.getElementById('location-input').focus();
-    this.props.handleFilterClick(!this.props.show.eat, this.props.show.sleep, this.props.show.do)
+    this.props.handleFilterClick(!this.props.show.eat, this.props.show.sleep, this.props.show.do);
   }
 
   handleSleepFilterClick() {
     document.getElementById('location-input').focus();
-    this.props.handleFilterClick(this.props.show.eat, !this.props.show.sleep, this.props.show.do)
+    this.props.handleFilterClick(this.props.show.eat, !this.props.show.sleep, this.props.show.do);
   }
 
   handleDoFilterClick() {
     document.getElementById('location-input').focus();
-    this.props.handleFilterClick(this.props.show.eat, this.props.show.sleep, !this.props.show.do)
+    this.props.handleFilterClick(this.props.show.eat, this.props.show.sleep, !this.props.show.do);
   }
 
   render() {
@@ -56,8 +56,9 @@ class SearchLocation extends React.Component {
       <div className="ui container">
         <div className="headerDiv">
           <span className="searchDiv">
-            <img src="http://www.clker.com/cliparts/O/Z/l/7/u/h/black-white-outline-world-map-no-background-hi.png"/>
-            <h2 className="description">Plan your next getaway!</h2>
+            <img src="../img/Voyager.png"/>
+            <br />
+            <br />
             <div className="ui fluid input">
               <input id="location-input" type="text" value={this.state.value} placeholder="I want to go to..."
                 onChange={this.handleInputChange}
@@ -65,6 +66,8 @@ class SearchLocation extends React.Component {
               />
               <div className="ui teal button" onClick={ this.handleClick }>GO</div>
             </div>
+            <br />
+            <br />
             <div>
               <button className={this.isSelected('eat')} name="eat" value={ this.props.show.eat} onClick={ this.handleEatFilterClick.bind(this) }>Eat</button>
               <button className={this.isSelected('sleep')} name="sleep" value={ this.props.show.sleep} onClick={ this.handleSleepFilterClick.bind(this) }>Sleep</button>
