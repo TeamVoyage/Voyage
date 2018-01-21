@@ -32,6 +32,9 @@
 
 }
 
+.ui.footer.basic.segment {
+  padding-bottom: 80px;
+}
 .searchDiv {
   min-width: 40%;
   position: absolute;
@@ -66,6 +69,10 @@
   max-width: 75%;
 }
 
+.content {
+  text-align: center;
+}
+
 h2.ui.inverted.header,  h3.ui.inverted.header{
   font-family: 'Roboto', helvetica, sans-serif;
 }
@@ -80,3 +87,26 @@ h3.ui.inverted.header {
   margin-top: 0;
 }
 
+h2 {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 3px;
+}
+
+.column {
+  padding-bottom: 30px;
+}
+.ui.middle.aligned.segment {
+  min-height: 400px;
+}
+
+.ui.middle.aligned.segment h1{
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 2px;
+  letter-spacing: 2px;
+  font-size: 14px;
+}

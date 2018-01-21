@@ -13,12 +13,12 @@ class Login extends React.Component {
     let status = (
       <div>
         <span>Logged in as: { this.props.name } &nbsp;&nbsp;</span>
-        <a
-          className='ui teal button'
+        <button
+          className='ui teal labeled icon button'
           onClick={ this.handleLogOutClicked.bind(this) }
-        >
+        ><i className="star icon"></i>
         Log out
-        </a>
+        </button>
       </div>
     );
 
@@ -26,10 +26,8 @@ class Login extends React.Component {
       status = (
         <div>
           <a
-            className='ui teal button'
-            href="/login/facebook"
-          >
-          Log In with Facebook
+            className='ui teal labeled icon button' href="/login/facebook"><i className="empty star icon"></i>
+            Log In with Facebook
           </a>
         </div>
       );

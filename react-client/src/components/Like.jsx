@@ -18,15 +18,21 @@ class Like extends React.Component {
     return (
       <div className="column">
         <div className="center aligned row" key={ this.props.event._id }>
-          <div className="ui card">
-            <div className="image">
-              <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
-            </div>
-            <div className="content">
-              <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
-            </div>
-            <div className="ui labeled button" tabIndex="0">
-              <div className="ui button" onClick={ this.handleClick }>Unlike</div>
+          <div className="ui cards">
+            <div className="card">
+              <div className="image">
+                <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
+              </div>
+              <div className="content">
+                <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
+              </div>
+              <center><div className="ui labeled button" tabindex="0">
+                <div className="ui teal button" onClick={ this.handleClick }>
+                  <i className="empty heart icon"></i>
+                  Unlike
+                </div>
+              </div></center>
+
             </div>
           </div>
         </div>
