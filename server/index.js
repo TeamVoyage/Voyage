@@ -44,6 +44,20 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
 
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   store: new MongoStore({ url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds163745.mlab.com:63745/tripcollab`})
+// }));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ url: `mongodb://localhost/tripcollab`})
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -59,7 +73,7 @@ app.get('/login/facebook/return',
 app.get('/checkSession', (req, res) => {
   User.findOne({ sessionID: req.sessionID }, (err, user) => {
     if (user) {
-      res.send(user._id);
+      res.send({ userId: user._id, name: user.username});
     } else {
       res.send();
     }
