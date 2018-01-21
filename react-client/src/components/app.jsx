@@ -163,7 +163,7 @@ class App extends React.Component {
 
     if (this.state.isSignedIn && this.state.userBoard.length !== 0) {
       display =
-        <div>
+        <div className="ui middle aligned raised segment">
           <h2>My Board</h2>
           <Board
             info={ this.state }
