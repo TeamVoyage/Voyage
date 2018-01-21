@@ -34,23 +34,19 @@ class SearchLocation extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Voyage</h1>
-        <h2>Plan your next getaway!</h2>
-        <div>
-          <input
-            type="text"
-            value={this.state.value}
-            placeholder="I want to go to..."
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleReturnKey}
-          />
-          <button
-            type="submit'"
-            onClick={ this.handleClick }
-          >
-            GO
-          </button>
+      <div className="ui container">
+        <div className="headerDiv">
+          <span className="searchDiv">
+            <img src="http://www.clker.com/cliparts/O/Z/l/7/u/h/black-white-outline-world-map-no-background-hi.png"/>
+            <h2 className="description">Plan your next getaway!</h2>
+            <div className="ui fluid input">
+              <input type="text" value={this.state.value} placeholder="I want to go to..."
+                onChange={this.handleInputChange}
+                onKeyPress={this.handleReturnKey}
+              />
+              <div className="ui teal button" onClick={ this.handleClick }>GO</div>
+            </div>
+          </span>
         </div>
       </div>
     );

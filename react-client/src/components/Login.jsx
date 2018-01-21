@@ -33,15 +33,15 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand" href="#">
-            <img src="./img/doge.jpg" width="28" height="28" alt="logo" className="d-inline-block align-top" />
-            Voyage
-          </a>
-          <div>
-            { this.displayStatus() }
+        <div className="ui tabular menu">
+          <div className="right menu">
+          <div className="item">
+            <div className="ui teal button">
+              { this.displayStatus() }
+            </div>
           </div>
-        </nav>
+          </div>
+        </div>
       </div>
     );
   }
