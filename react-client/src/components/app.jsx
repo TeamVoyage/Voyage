@@ -34,11 +34,11 @@ class App extends React.Component {
     this.go = this.go.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.addEventToUser = this.addEventToUser.bind(this);
+    this.deleteEventFromUser = this.deleteEventFromUser.bind(this);
   }
 
   componentDidMount() {
     this.checkSession();
-    this.getBoard();
   }
 
   checkSession() {
@@ -46,12 +46,20 @@ class App extends React.Component {
     $.ajax({
       url: '/checkSession',
       success: function(response) {
-        var isSignedIn = !!(response.userId);
-        that.setState({
-          isSignedIn: isSignedIn,
-          userId: response.userId,
-          name: response.name
-        });
+        if (response.userId) {
+          that.setState({
+            isSignedIn: true,
+            userId: response.userId,
+            name: response.name
+          });
+          that.getBoard(response.userId);
+        } else {
+          that.setState({
+            isSignedIn: false,
+            userId: '',
+            name: ''
+          });
+        }
       },
       error: function() {
         console.log('check access token error');
@@ -77,10 +85,10 @@ class App extends React.Component {
   }
 
   deleteEventFromUser(eventId) {
+    var that = this;
     axios.delete('/users/' + this.state.userId + '/events/' + eventId)
       .then(response => {
-        console.log('Deleted from user ', response);
-        // this.setState({userBoard: response.data});
+        that.setState({userBoard: response.data});
 
       })
       .catch(error => {
@@ -88,17 +96,14 @@ class App extends React.Component {
       });
   }
 
-  getBoard() {
-    if (this.state.isSignedIn) {
-      axios.get('/users/' + this.state.userId + '/events')
-        .then(response => {
-          console.log('User board ', response);
-          this.setState({ userBoard: response.data });
-        })
-        .catch(error => {
-          console.log('could not retreieve board');
-        });
-    }
+  getBoard(userId) {
+    axios.get('/users/' + userId + '/events')
+      .then(response => {
+        this.setState({ userBoard: response.data });
+      })
+      .catch(error => {
+        console.log('could not retreieve board');
+      });
   }
 
   addEventToUser(event) {
@@ -123,7 +128,6 @@ class App extends React.Component {
       params: {location: loc}
     })
       .then(response => {
-        // console.log('Data from server', response);
         this.setState({
           categories: response.data
         });
@@ -151,7 +155,6 @@ class App extends React.Component {
     return display;
   }
 
-  // If User logged in, render Board component
   displayBoard() {
     let display =
       <div>
