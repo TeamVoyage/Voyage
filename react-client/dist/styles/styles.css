@@ -44,7 +44,7 @@ body {
   background-color: #7e7f86;
   min-height: 300px;
   text-align: center;
-  padding-top: 50px;
+  padding-top: 25px;
   font-family: 'Roboto', helvetica, sans-serif;
 }
 
@@ -52,3 +52,4 @@ body {
   margin: auto;
   max-width: 75%;
 }
+
