@@ -10,22 +10,31 @@ class Login extends React.Component {
   }
 
   displayStatus() {
-    let status =
-      <a
-        className='btn float-right'
-        onClick={ this.handleLogOutClicked.bind(this) }
-      >
-      Log out
-      </a>;
+    let status = (
+        <div>
+          <span>Logged in as: { this.props.name }</span>
+          <div className="ui teal button">
+            <a
+              className='btn float-right'
+              onClick={ this.handleLogOutClicked.bind(this) }
+            >
+            Log out
+            </a>
+          </div>
+        </div>
+      );
 
     if (!this.props.isSignedIn) {
-      status =
-        <a
-          className='btn float-right'
-          href="/login/facebook"
-        >
-        Log In with Facebook
-        </a>;
+      status = (
+          <div className="ui teal button">
+            <a
+              className='btn float-right'
+              href="/login/facebook"
+            >
+            Log In with Facebook
+            </a>
+          </div>
+        );
     }
     return status;
   }
@@ -35,11 +44,9 @@ class Login extends React.Component {
       <div>
         <div className="ui tabular menu">
           <div className="right menu">
-          <div className="item">
-            <div className="ui teal button">
+            <div className="item">
               { this.displayStatus() }
             </div>
-          </div>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       userId: '',
+      name: [],
       userBoard: [],
       // userBoard: [{
       //   id: "the-alcove-sunnyside",
@@ -40,14 +41,21 @@ class App extends React.Component {
     this.getBoard();
   }
 
-  signIn() {
+  componentDidMount() {
+    this.checkSession();
+    this.getBoard();
+  }
+
+  checkSession() {
     var that = this;
     $.ajax({
       url: '/checkSession',
-      success: function(userId) {
+      success: function(response) {
+        var isSignedIn = !!(response.userId);
         that.setState({
-          isSignedIn: true,
-          userId: userId
+          isSignedIn: isSignedIn,
+          userId: response.userId,
+          name: response.name
         });
       },
       error: function() {
@@ -179,6 +187,7 @@ class App extends React.Component {
         <Login
           handleLogOut={ this.handleLogOut.bind(this) }
           isSignedIn={ this.state.isSignedIn }
+          name={ this.state.name }
         />
         <SearchLocation go={ this.go }/>
         { this.displaySearch() }
