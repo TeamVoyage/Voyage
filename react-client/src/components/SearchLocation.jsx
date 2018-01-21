@@ -51,6 +51,11 @@ class SearchLocation extends React.Component {
     this.props.handleFilterClick(this.props.show.eat, this.props.show.sleep, !this.props.show.do);
   }
 
+  componentDidMount() {
+    var input = document.getElementById('location-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  }
+
   render() {
     return (
       <div className="ui container">
