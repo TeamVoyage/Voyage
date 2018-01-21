@@ -143,13 +143,11 @@ class App extends React.Component {
          this.state.categories.events.length !== 0)) {
       display =
         <div>
-          <hr/>
           <Results
             info={ this.state }
             addEventToUser={ this.addEventToUser }
             show={ this.state.show }
           />
-          <hr/>
         </div>;
     }
     return display;
