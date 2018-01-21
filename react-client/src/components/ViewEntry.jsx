@@ -18,9 +18,31 @@ class ViewEntry extends React.Component {
     console.log('props', this.props);
     return (
       <div key={ this.props.event.id }>
-        <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
-        <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
-        <button type="button" onClick={ this.handleClick }>like</button>
+
+        <div className="ui grid">
+            <div className="four wide column">
+              <div className="ui card">
+                  <div className="image">
+                    <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="image"/>
+                  </div>
+                  <div className="content">
+                    <a href={ this.props.event.url } className="header">{ this.props.event.name }</a>
+
+                    <div className="description">
+                      Kristy is an art director living in New York.
+                    </div>
+
+                    <div className="ui labeled button" tabindex="0">
+                      <div className="ui button" onClick={ this.handleClick }>
+                        <i className="heart icon"></i> Like
+                      </div>
+                    </div>
+                    
+                  </div>
+              </div>
+            </div>
+        </div>
+
       </div>
     );
   }
