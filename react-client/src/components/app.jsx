@@ -29,7 +29,12 @@ class App extends React.Component {
         events: []
       },
       isSignedIn: false,
-      location: ''
+      location: '',
+      show: {
+        eat: true,
+        sleep: true,
+        do: true
+      }
     };
     this.go = this.go.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -148,7 +153,9 @@ class App extends React.Component {
           <hr/>
           <Results
             info={ this.state }
-            addEventToUser={ this.addEventToUser } />
+            addEventToUser={ this.addEventToUser }
+            show={ this.state.show }
+          />
           <hr/>
         </div>;
     }
@@ -178,6 +185,16 @@ class App extends React.Component {
     return display;
   }
 
+  handleFilterClicked(showEat, showSleep, showDo) {
+    this.setState({
+      show: {
+        eat: showEat,
+        sleep: showSleep,
+        do: showDo
+      }
+    });
+  }
+
   render() {
     console.log('state', this.state);
     return (
@@ -187,7 +204,11 @@ class App extends React.Component {
           isSignedIn={ this.state.isSignedIn }
           name={ this.state.name }
         />
-        <SearchLocation go={ this.go }/>
+        <SearchLocation
+          go={ this.go }
+          handleFilterClick={ this.handleFilterClicked.bind(this) }
+          show={ this.state.show }
+        />
         { this.displaySearch() }
         { this.displayBoard() }
       </div>
