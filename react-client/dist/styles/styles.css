@@ -35,3 +35,20 @@ body {
 .nameHeader {
 
 }
+
+.ui.footer.segment {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0;
+  background-color: #7e7f86;
+  min-height: 300px;
+  text-align: center;
+  padding-top: 50px;
+  font-family: 'Roboto', helvetica, sans-serif;
+}
+
+.ui.divided.grid {
+  margin: auto;
+  max-width: 75%;
+}
