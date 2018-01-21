@@ -17,13 +17,23 @@ class Like extends React.Component {
   render() {
     console.log('props', this.props);
     return (
-      <div key={ this.props.event._id }>
-        <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
-        <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
-        <button type="button" onClick={ this.handleClick }>like</button>
+      <div className="four wide column" key={ this.props.event._id }>
+        <div className="ui card">
+          <div className="image">
+            <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
+          </div>
+          <div className="content">
+            <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
+          </div>
+          <div className="ui labeled button" tabIndex="0">
+            <div className="ui button" onClick={ this.handleClick }>Unlike</div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default Like;
+
+  // <button type="button" onClick={ this.handleClick }>unlike</button>
