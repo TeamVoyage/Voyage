@@ -37,11 +37,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.signIn();
-    this.getBoard();
-  }
-
-  componentDidMount() {
     this.checkSession();
     this.getBoard();
   }
