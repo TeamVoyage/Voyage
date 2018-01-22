@@ -8,7 +8,7 @@ class Like extends React.Component {
 
   handleClick(e) {
     if (this.props.info.isSignedIn) {
-      this.props.deleteEventFromUser(this.props.event.id);
+      this.props.deleteEventFromUser(this.props.event);
     } else {
       alert('Please sign in');
     }

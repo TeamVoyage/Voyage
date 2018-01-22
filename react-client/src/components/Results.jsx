@@ -13,6 +13,7 @@ const Results = (props) => {
           info={ props.info }
           category={ props.info.categories.restaurants }
           addEventToUser={ props.addEventToUser }
+          deleteEventFromUser={ props.deleteEventFromUser }
         />
       </div>
     );
@@ -24,7 +25,9 @@ const Results = (props) => {
         <View
           info={ props.info }
           category={ props.info.categories.hotels }
-          addEventToUser={ props.addEventToUser } />
+          addEventToUser={ props.addEventToUser }
+          deleteEventFromUser={ props.deleteEventFromUser }
+        />
       </div>
     );
   }
@@ -35,7 +38,9 @@ const Results = (props) => {
         <View
           info={ props.info }
           category={ props.info.categories.events }
-          addEventToUser={ props.addEventToUser } />
+          addEventToUser={ props.addEventToUser }
+          deleteEventFromUser={ props.deleteEventFromUser }
+        />
       </div>
     );
   }

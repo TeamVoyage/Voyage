@@ -83,9 +83,9 @@ class App extends React.Component {
     });
   }
 
-  deleteEventFromUser(eventId) {
+  deleteEventFromUser(event) {
     var that = this;
-    axios.delete('/users/' + this.state.userId + '/events/' + eventId)
+    axios.delete('/users/' + this.state.userId + '/events/' + event.id)
       .then(response => {
         that.setState({userBoard: response.data});
 
@@ -158,6 +158,7 @@ class App extends React.Component {
           <Results
             info={ this.state }
             addEventToUser={ this.addEventToUser }
+            deleteEventFromUser={ this.deleteEventFromUser }
             show={ this.state.show }
           />
         </div>;

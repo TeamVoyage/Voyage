@@ -5,14 +5,26 @@ class ViewEntry extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      liked: false
+    }
   }
 
   handleClick(e) {
     if (this.props.info.isSignedIn) {
-      this.props.addEventToUser(this.props.event);
+      if (this.state.liked) {
+        this.props.deleteEventFromUser(this.props.event);
+      } else {
+        this.props.addEventToUser(this.props.event);
+      }
+      this.setState({ liked: !this.state.liked })
     } else {
       alert('Please sign in');
     }
+  }
+
+  getLikeText(liked) {
+    return liked ? 'Unlike' : 'Like' ;
   }
 
   render() {
@@ -30,7 +42,7 @@ class ViewEntry extends React.Component {
               <div className="ui labeled button" tabIndex="0">
                 <div className="ui button" onClick={ this.handleClick }>
                   <i className="heart icon"></i>
-                  Like
+                  { this.getLikeText(this.state.liked) }
                 </div>
               </div>
             </center>
