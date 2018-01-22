@@ -172,3 +172,31 @@ h2 {
             column-count: 6;
   }
 }
+
+#location-input {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#go-button {
+  margin-left: -1px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+#clear-button {
+  margin-left: 0px;
+  box-shadow: 0 0 0 0px #ffffff inset!important;
+  color: #ffffff!important;
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#btn1 {
+  margin-right: 10px;
+}
+
+#btn2 {
+  margin-right: 10px;
+}
