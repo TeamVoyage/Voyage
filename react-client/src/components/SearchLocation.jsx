@@ -4,32 +4,19 @@ import { Link } from 'react-router-dom';
 class SearchLocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      location: ''
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleReturnKey = this.handleReturnKey.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleInputChange(e) {
-    this.setState({
-      location: e.target.value,
-    });
-    console.log('input data', this.state.location);
-  }
-
   handleReturnKey(e) {
     if (e.key === 'Enter' && this.state.location) {
-      this.props.go(this.state.location);
+      document.getElementById('location-input').value;
     }
   }
 
   handleClick(e) {
     e.preventDefault();
-    if (this.state.location) {
-      this.props.go(this.state.location);
-    }
+    this.props.go(document.getElementById('location-input').value);
   }
 
   isSelected(filter) {
@@ -65,8 +52,7 @@ class SearchLocation extends React.Component {
             <br />
             <br />
             <div className="ui fluid input">
-              <input id="location-input" type="text" value={this.state.value} placeholder="I want to go to..."
-                onChange={this.handleInputChange}
+              <input id="location-input" type="text" placeholder="I want to go to..."
                 onKeyPress={this.handleReturnKey}
               />
               <div className="ui teal button" onClick={ this.handleClick }>GO</div>
