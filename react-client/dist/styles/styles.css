@@ -69,6 +69,10 @@
   max-width: 75%;
 }
 
+.ui.footer.basic.segment p {
+  margin-top: 40px;
+}
+
 .content {
   text-align: center;
 }
@@ -78,8 +82,9 @@ h2.ui.inverted.header,  h3.ui.inverted.header{
 }
 
 h2.ui.inverted.header {
-  font-size: 1.5em;
+  font-size: 1.4em;
   margin-bottom: 5px;
+  letter-spacing: 2px;
 }
 
 h3.ui.inverted.header {
@@ -109,4 +114,61 @@ h2 {
   font-weight: 2px;
   letter-spacing: 2px;
   font-size: 14px;
+}
+
+
+.ui.six.column.doubling.stackable.masonry.grid {
+  margin: auto;
+  max-width: 85%;
+}
+
+.masonry.grid {
+  display: block;
+}
+
+@media only screen and (min-width: 768px) {
+  .masonry.grid {
+    -webkit-column-count: 2;
+       -moz-column-count: 2;
+            column-count: 2;
+    -webkit-column-gap: 0;
+       -moz-column-gap: 0;
+            column-gap: 0;
+  }
+
+.ui.doubling.masonry.grid[class*="six column"] > .column {
+    width: 100% !important;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .masonry.grid {
+    -webkit-column-count: 3;
+       -moz-column-count: 3;
+            column-count: 3;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .masonry.grid {
+    -webkit-column-count: 4;
+       -moz-column-count: 4;
+            column-count: 4;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .masonry.grid {
+    -webkit-column-count: 5;
+       -moz-column-count: 5;
+            column-count: 5;
+  }
+}
+
+@media only screen and (min-width: 2400px) {
+  .masonry.grid {
+    -webkit-column-count: 6;
+       -moz-column-count: 6;
+            column-count: 6;
+  }
 }

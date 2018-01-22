@@ -1,8 +1,5 @@
 import React from 'react';
 import View from './View.jsx';
-// import EatView from './EatView.jsx';
-// import SleepView from './SleepView.jsx';
-// import ExploreView from './ExploreView.jsx';
 
 const Results = (props) => {
   var eatDiv;
@@ -10,7 +7,7 @@ const Results = (props) => {
   var doDiv;
   if (props.show.eat) {
     eatDiv = (
-      <div>
+      <div className="ui middle aligned stackable segment">
         <h2>Food & Drinks | { props.info.location }</h2>
         <View
           info={ props.info }
@@ -22,7 +19,7 @@ const Results = (props) => {
   }
   if (props.show.sleep) {
     sleepDiv = (
-      <div>
+      <div className="ui middle aligned stackable segment">
         <h2>Accommodations | { props.info.location }</h2>
         <View
           info={ props.info }
@@ -33,7 +30,7 @@ const Results = (props) => {
   }
   if (props.show.do) {
     doDiv = (
-      <div>
+      <div className="ui middle aligned stackable segment">
         <h2>Events | { props.info.location }</h2>
         <View
           info={ props.info }
@@ -52,36 +49,3 @@ const Results = (props) => {
 };
 
 export default Results;
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           <EatView
-//             info={ this.props.info }
-//             addEventToUser={ this.props.addEventToUser } />
-//         </div>
-//         <hr/>
-//         <div>
-//           <SleepView
-//             info={ this.props.info }
-//             addEventToUser={ this.props.addEventToUser } />
-//         </div>
-//         <hr/>
-//         <div>
-//           <ExploreView
-//             info={ this.props.info }
-//             addEventToUser={ this.props.addEventToUser } />
-//         </div>
-//         <div>
-//           <h2>Food & Drinks!!! | { this.props.info.location }</h2>
-//           <View
-//             info={ this.props.info }
-//             addEventToUser={ this.props.addEventToUser }
-//             category={ this.props.info.categories.restaurants }
-//           />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
