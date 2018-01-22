@@ -10,8 +10,8 @@ class SearchLocation extends React.Component {
   }
 
   handleReturnKey(e) {
-    if (e.key === 'Enter' && this.state.location) {
-      document.getElementById('location-input').value;
+    if (e.key === 'Enter') {
+      this.props.go(document.getElementById('location-input').value);
     }
   }
 
@@ -47,6 +47,10 @@ class SearchLocation extends React.Component {
   componentDidMount() {
     var input = document.getElementById('location-input');
     var autocomplete = new google.maps.places.Autocomplete(input);
+    var context = this;
+    $(document).keypress(function(e) {
+      context.handleReturnKey(e)
+    });
   }
 
   render() {
