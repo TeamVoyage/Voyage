@@ -3,7 +3,7 @@ import ViewEntry from './ViewEntry.jsx';
 
 const View = (props) => {
   return (
-    <div>
+    <div className="ui four column grid">
       {props.category.map(event =>
         <ViewEntry
           key={ event.id }

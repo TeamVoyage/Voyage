@@ -17,11 +17,11 @@ class ViewEntry extends React.Component {
   render() {
     console.log('props', this.props);
     return (
-      <div key={ this.props.event.id }>
+      <div className="column">
+        <div className="center aligned row" key={ this.props.event.id }>
+          <div className="ui cards">
 
-        <div className="ui grid">
-          <div className="four wide column">
-            <div className="ui card">
+              <div className="card">
                 <div className="image">
                   <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="image"/>
                 </div>
@@ -39,10 +39,10 @@ class ViewEntry extends React.Component {
                   </div>
 
                 </div>
-            </div>
+              </div>
+
           </div>
         </div>
-
       </div>
     );
   }
