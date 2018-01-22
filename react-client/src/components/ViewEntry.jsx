@@ -21,7 +21,7 @@ class ViewEntry extends React.Component {
         <div className="ui cards">
           <div className="ui centered card">
             <div className="image" >
-              <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
+              <img className="" src={ this.props.event.image_url } alt="" />
             </div>
             <div className="content">
               <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
