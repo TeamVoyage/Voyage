@@ -141,9 +141,12 @@ class App extends React.Component {
       params: {location: loc}
     })
       .then(response => {
-        this.setState({
-          categories: response.data
-        });
+        console.log('RESP: ', typeof(response.data));
+        if (response.data !== '') {
+          this.setState({
+            categories: response.data
+          });
+        }
       })
       .catch(error => {
         console.log('Error, could not search ', error);
@@ -152,20 +155,36 @@ class App extends React.Component {
 
   displaySearch() {
     let display = <div></div>;
-    if (this.state.location ||
-        (this.state.categories.restaurants.length !== 0 ||
-         this.state.categories.hotels.length !== 0 ||
-         this.state.categories.events.length !== 0)) {
-      display =
-        <div>
-          <Results
-            info={ this.state }
-            addEventToUser={ this.addEventToUser }
-            deleteEventFromUser={ this.deleteEventFromUser }
-            show={ this.state.show }
-          />
-        </div>;
+
+    if (this.state.location) {
+      if (this.state.categories.restaurants.length !== 0 ||
+          this.state.categories.hotels.length !== 0 ||
+          this.state.categories.events.length !== 0) {
+          display =
+          <div>
+            <Results
+              info={ this.state }
+              addEventToUser={ this.addEventToUser }
+              deleteEventFromUser={ this.deleteEventFromUser }
+              show={ this.state.show }
+            />
+          </div>;
+      }
     }
+    // if (this.state.location ||
+    //     (this.state.categories.restaurants.length !== 0 ||
+    //      this.state.categories.hotels.length !== 0 ||
+    //      this.state.categories.events.length !== 0)) {
+    //   display =
+    //     <div>
+    //       <Results
+    //         info={ this.state }
+    //         addEventToUser={ this.addEventToUser }
+    //         deleteEventFromUser={ this.deleteEventFromUser }
+    //         show={ this.state.show }
+    //       />
+    //     </div>;
+    // }
     return display;
   }
 
