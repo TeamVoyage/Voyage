@@ -65,15 +65,17 @@ class SearchLocation extends React.Component {
               <input id="location-input" type="text" placeholder="I want to go to..."
                 onKeyPress={this.handleReturnKey}
               />
+              <div id="go-button" className="ui teal button" onClick={ this.handleClick }>GO</div>
             </div>
-            <div className="ui teal button" onClick={ this.handleClick }>GO</div>
-            <div className="ui teal button" onClick={ this.handleClear }>CLEAR</div>
+              <div id="clear-button" className="ui button teal basic" onClick={ this.handleClear }>CLEAR RESULTS</div>
             <br />
             <br />
             <div>
-              <button className={this.isSelected('eat')} name="eat" value={ this.props.show.eat} onClick={ this.handleEatFilterClick.bind(this) }>Eat</button>
-              <button className={this.isSelected('sleep')} name="sleep" value={ this.props.show.sleep} onClick={ this.handleSleepFilterClick.bind(this) }>Sleep</button>
-              <button className={this.isSelected('do')} name="do" value={ this.props.show.do} onClick={ this.handleDoFilterClick.bind(this) }>Do</button>
+              <button id="btn1" className={this.isSelected('eat')} name="eat" value={ this.props.show.eat} onClick={ this.handleEatFilterClick.bind(this) }>Eat</button>
+
+              <button id="btn2" className={this.isSelected('sleep')} name="sleep" value={ this.props.show.sleep} onClick={ this.handleSleepFilterClick.bind(this) }>Sleep</button>
+
+              <button id="btn3" className={this.isSelected('do')} name="do" value={ this.props.show.do} onClick={ this.handleDoFilterClick.bind(this) }>Do</button>
             </div>
           </span>
         </div>

@@ -12,7 +12,7 @@ class Login extends React.Component {
   displayStatus() {
     let status = (
       <div>
-        <span>Logged in as: { this.props.name } &nbsp;&nbsp;</span>
+        <span>Hi, { this.props.name } &nbsp;&nbsp;</span>
         <button
           className='ui teal labeled icon button'
           onClick={ this.handleLogOutClicked.bind(this) }
