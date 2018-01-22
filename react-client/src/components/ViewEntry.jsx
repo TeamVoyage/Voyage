@@ -7,7 +7,7 @@ class ViewEntry extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       liked: false
-    }
+    };
   }
 
   handleClick(e) {
@@ -17,14 +17,14 @@ class ViewEntry extends React.Component {
       } else {
         this.props.addEventToUser(this.props.event);
       }
-      this.setState({ liked: !this.state.liked })
+      this.setState({ liked: !this.state.liked });
     } else {
       alert('Please sign in');
     }
   }
 
   getLikeText(liked) {
-    return liked ? 'Unlike' : 'Like' ;
+    return liked ? 'Unlike' : 'Like';
   }
 
   render() {

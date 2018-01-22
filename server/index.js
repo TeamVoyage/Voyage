@@ -44,18 +44,11 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
 
-// app.use(session({
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true,
-//   store: new MongoStore({ url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds163745.mlab.com:63745/tripcollab`})
-// }));
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({ url: `mongodb://localhost/tripcollab`})
+  store: new MongoStore({ url: 'mongodb://localhost/tripcollab'})
 }));
 
 app.use(passport.initialize());
