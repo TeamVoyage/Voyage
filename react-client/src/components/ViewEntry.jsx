@@ -16,8 +16,6 @@ class ViewEntry extends React.Component {
   }
 
   render() {
-    console.log('props', this.props);
-
     return (
       <div className="center aligned column" key={ this.props.event._id }>
         <div className="ui cards">
@@ -29,7 +27,7 @@ class ViewEntry extends React.Component {
               <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
             </div>
             <center>
-              <div className="ui labeled button" tabindex="0">
+              <div className="ui labeled button" tabIndex="0">
                 <div className="ui button" onClick={ this.handleClick }>
                   <i className="heart icon"></i>
                   Like

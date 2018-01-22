@@ -6,6 +6,7 @@ class SearchLocation extends React.Component {
     super(props);
     this.handleReturnKey = this.handleReturnKey.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   handleReturnKey(e) {
@@ -17,6 +18,11 @@ class SearchLocation extends React.Component {
   handleClick(e) {
     e.preventDefault();
     this.props.go(document.getElementById('location-input').value);
+  }
+
+  handleClear(e) {
+    $('#location-input').val('');
+    this.props.clearSearch();
   }
 
   isSelected(filter) {
@@ -55,8 +61,9 @@ class SearchLocation extends React.Component {
               <input id="location-input" type="text" placeholder="I want to go to..."
                 onKeyPress={this.handleReturnKey}
               />
-              <div className="ui teal button" onClick={ this.handleClick }>GO</div>
             </div>
+            <div className="ui teal button" onClick={ this.handleClick }>GO</div>
+            <div className="ui teal button" onClick={ this.handleClear }>CLEAR</div>
             <br />
             <br />
             <div>
