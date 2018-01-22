@@ -3,7 +3,7 @@ import Like from './Like.jsx';
 
 const Board = (props) => {
   return (
-    <div className="ui stackable grid">
+    <div className="ui six column doubling stackable masonry grid">
       { props.board.map(event =>
         <Like
           key={ event._id }
