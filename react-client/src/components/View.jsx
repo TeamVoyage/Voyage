@@ -10,6 +10,7 @@ let View = (props) => {
           event={ event }
           info={ props.info }
           addEventToUser={ props.addEventToUser }
+          deleteEventFromUser={ props.deleteEventFromUser }
         />
       )}
     </div>
