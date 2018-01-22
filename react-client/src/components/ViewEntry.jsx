@@ -32,7 +32,7 @@ class ViewEntry extends React.Component {
               <div className="ui labeled button" tabindex="0">
                 <div className="ui button" onClick={ this.handleClick }>
                   <i className="heart icon"></i>
-                  Unlike
+                  Like
                 </div>
               </div>
             </center>
