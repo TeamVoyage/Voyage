@@ -1,4 +1,5 @@
 import React from 'react';
+import Slider from 'react-slick';
 
 class ViewEntry extends React.Component {
   constructor(props) {
@@ -16,27 +17,25 @@ class ViewEntry extends React.Component {
 
   render() {
     console.log('props', this.props);
+
     return (
-      <div className="four wide column" key={ this.props.event.id }>
+      <div className="center aligned column" key={ this.props.event._id }>
         <div className="ui cards">
-          <div className="card">
-            <div className="image">
-              <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="image"/>
+          <div className="ui centered card">
+            <div className="image" >
+              <img src={ this.props.event.image_url.replace('/o.jpg', '/m.jpg')} alt="" />
             </div>
             <div className="content">
-              <a href={ this.props.event.url } className="header">{ this.props.event.name }</a>
-
-              <div className="description">
-                Kristy is an art director living in New York.
-              </div>
-
-              <div className="ui labeled button" tabIndex="0">
+              <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
+            </div>
+            <center>
+              <div className="ui labeled button" tabindex="0">
                 <div className="ui button" onClick={ this.handleClick }>
-                  <i className="heart icon"></i> Like
+                  <i className="heart icon"></i>
+                  Unlike
                 </div>
               </div>
-
-            </div>
+            </center>
           </div>
         </div>
       </div>
@@ -45,4 +44,3 @@ class ViewEntry extends React.Component {
 }
 
 export default ViewEntry;
-

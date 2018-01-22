@@ -1,10 +1,10 @@
 import React from 'react';
 import ViewEntry from './ViewEntry.jsx';
 
-const View = (props) => {
+let View = (props) => {
   return (
-    <div className="ui stackable grid">
-      {props.category.map(event =>
+    <div className="ui six column doubling stackable masonry grid">
+      { props.category.map(event =>
         <ViewEntry
           key={ event.id }
           event={ event }

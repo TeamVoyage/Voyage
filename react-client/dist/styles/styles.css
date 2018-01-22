@@ -122,12 +122,6 @@ h2 {
   max-width: 85%;
 }
 
-/*.ui.stackable.grid {
-  margin: auto;
-  max-width: 80%;
-}
-*/
-
 .masonry.grid {
   display: block;
 }
