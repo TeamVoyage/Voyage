@@ -33,6 +33,7 @@ class App extends React.Component {
     this.handleLogOut = this.handleLogOut.bind(this);
     this.addEventToUser = this.addEventToUser.bind(this);
     this.deleteEventFromUser = this.deleteEventFromUser.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
   }
 
   componentDidMount() {
@@ -115,6 +116,17 @@ class App extends React.Component {
       .catch(error => {
         console.log('Could not add this event', error);
       });
+  }
+
+  clearSearch() {
+    this.setState({
+      categories: {
+        restaurants: [],
+        hotels: [],
+        events: []
+      },
+      location: ''
+    });
   }
 
   go(loc) {
@@ -201,6 +213,7 @@ class App extends React.Component {
           go={ this.go }
           handleFilterClick={ this.handleFilterClicked.bind(this) }
           show={ this.state.show }
+          clearSearch={ this.clearSearch }
         />
 
         { this.displaySearch() }
