@@ -8,6 +8,9 @@ import Results from './Results.jsx';
 import View from './View.jsx';
 import Board from './Board.jsx';
 import $ from 'jquery';
+import ScrollableAnchor from 'react-scrollable-anchor';
+import { goToTop } from 'react-scrollable-anchor';
+import { configureAnchors } from 'react-scrollable-anchor';
 
 class App extends React.Component {
   constructor(props) {
@@ -181,11 +184,13 @@ class App extends React.Component {
             info={ this.state }
             board={ this.state.userBoard }
             deleteEventFromUser={ this.deleteEventFromUser }/>
+
         </div>;
     } else if (this.state.isSignedIn && this.state.userBoard.length === 0) {
       display =
         <div className="ui middle aligned segment">
           <h1>Your board is empty</h1>
+
         </div>;
     }
     return display;
@@ -205,6 +210,7 @@ class App extends React.Component {
     console.log('state', this.state);
     return (
       <div>
+        {configureAnchors({offset: -60, scrollDuration: 200})}
         <Login
           handleLogOut={ this.handleLogOut.bind(this) }
           isSignedIn={ this.state.isSignedIn }
@@ -218,8 +224,10 @@ class App extends React.Component {
         />
 
         { this.displaySearch() }
-
-        { this.displayBoard() }
+        <ScrollableAnchor id={'myBoard'}>
+          { this.displayBoard() }
+        </ScrollableAnchor>
+        <center><a onClick={ goToTop }>back to the top</a></center>
 
       </div>
     );

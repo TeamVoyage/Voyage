@@ -1,4 +1,6 @@
 import React from 'react';
+import ScrollableAnchor from 'react-scrollable-anchor';
+import { goToAnchor } from 'react-scrollable-anchor';
 
 class Login extends React.Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class Login extends React.Component {
         <div className="ui tabular menu">
           <div className="right menu">
             { this.displayStatus() }
+            <div className="ui teal basic button" onClick={function() { goToAnchor('myBoard'); }}>my board</div>
           </div>
         </div>
       </div>
