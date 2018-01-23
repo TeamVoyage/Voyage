@@ -116,5 +116,6 @@ app.post('/users/:userId/events', (req, res) => {
 
 app.listen(port, () => {
   console.log('listening on port 3000!');
+  console.log('mongo', process.env.MONGODB_URI)
 });
 
