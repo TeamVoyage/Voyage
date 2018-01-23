@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/tripcollab');
+
+const url = process.env.MONGODB_URI || 'mongodb://localhost/tripcollab';
+mongoose.connect(url);
 // mongoose.connect(process.env.MONGOLAB_PURPLE_URI);
 
 const db = mongoose.connection;
