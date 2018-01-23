@@ -7,6 +7,19 @@ class SearchLocation extends React.Component {
     this.handleReturnKey = this.handleReturnKey.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClear = this.handleClear.bind(this);
+    this.isSelected = this.isSelected.bind(this);
+    this.handleEatFilterClick = this.handleEatFilterClick.bind(this);
+    this.handleSleepFilterClick = this.handleSleepFilterClick.bind(this);
+    this.handleDoFilterClick = this.handleDoFilterClick.bind(this);
+  }
+
+  componentDidMount() {
+    var input = document.getElementById('location-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    var context = this;
+    $(document).keypress(function(e) {
+      context.handleReturnKey(e);
+    });
   }
 
   handleReturnKey(e) {
@@ -44,15 +57,6 @@ class SearchLocation extends React.Component {
     this.props.handleFilterClick(this.props.show.eat, this.props.show.sleep, !this.props.show.do);
   }
 
-  componentDidMount() {
-    var input = document.getElementById('location-input');
-    var autocomplete = new google.maps.places.Autocomplete(input);
-    var context = this;
-    $(document).keypress(function(e) {
-      context.handleReturnKey(e);
-    });
-  }
-
   render() {
     return (
       <div className="ui container">
@@ -63,7 +67,7 @@ class SearchLocation extends React.Component {
             <br />
             <div className="ui fluid input">
               <input id="location-input" type="text" placeholder="I want to go to..."
-                onKeyPress={this.handleReturnKey}
+                onKeyPress={ this.handleReturnKey }
               />
               <div id="go-button" className="ui teal button" onClick={ this.handleClick }>GO</div>
             </div>
@@ -71,11 +75,11 @@ class SearchLocation extends React.Component {
             <br />
             <br />
             <div>
-              <button id="btn1" className={this.isSelected('eat')} name="eat" value={ this.props.show.eat} onClick={ this.handleEatFilterClick.bind(this) }>Eat</button>
+              <button id="btn1" className={ this.isSelected('eat') } name="eat" value={ this.props.show.eat } onClick={ this.handleEatFilterClick }>Eat</button>
 
-              <button id="btn2" className={this.isSelected('sleep')} name="sleep" value={ this.props.show.sleep} onClick={ this.handleSleepFilterClick.bind(this) }>Sleep</button>
+              <button id="btn2" className={ this.isSelected('sleep') } name="sleep" value={ this.props.show.sleep } onClick={ this.handleSleepFilterClick }>Sleep</button>
 
-              <button id="btn3" className={this.isSelected('do')} name="do" value={ this.props.show.do} onClick={ this.handleDoFilterClick.bind(this) }>Do</button>
+              <button id="btn3" className={ this.isSelected('do') } name="do" value={ this.props.show.do } onClick={ this.handleDoFilterClick }>Do</button>
             </div>
           </span>
         </div>

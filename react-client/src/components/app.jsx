@@ -1,6 +1,4 @@
 import React from 'react';
-import RouteProps from 'react-route-props';
-import { Route, Switch, indexRoute } from 'react-router-dom';
 import axios from 'axios';
 import Login from './Login.jsx';
 import SearchLocation from './SearchLocation.jsx';
@@ -113,7 +111,6 @@ class App extends React.Component {
       event: event
     })
       .then(response => {
-        console.log('Add to event results ', response.data);
         this.setState({ userBoard: response.data });
       })
       .catch(error => {
@@ -141,7 +138,6 @@ class App extends React.Component {
       params: {location: loc}
     })
       .then(response => {
-        console.log('RESP: ', typeof(response.data));
         if (response.data !== '') {
           this.setState({
             categories: response.data
@@ -160,7 +156,7 @@ class App extends React.Component {
       if (this.state.categories.restaurants.length !== 0 ||
           this.state.categories.hotels.length !== 0 ||
           this.state.categories.events.length !== 0) {
-          display =
+        display =
           <div>
             <Results
               info={ this.state }
@@ -171,27 +167,12 @@ class App extends React.Component {
           </div>;
       }
     }
-    // if (this.state.location ||
-    //     (this.state.categories.restaurants.length !== 0 ||
-    //      this.state.categories.hotels.length !== 0 ||
-    //      this.state.categories.events.length !== 0)) {
-    //   display =
-    //     <div>
-    //       <Results
-    //         info={ this.state }
-    //         addEventToUser={ this.addEventToUser }
-    //         deleteEventFromUser={ this.deleteEventFromUser }
-    //         show={ this.state.show }
-    //       />
-    //     </div>;
-    // }
     return display;
   }
 
   displayBoard() {
     let display =
       <div className="ui middle aligned segment">
-
         <h1>Please sign in to see your board!</h1>
       </div>;
 
@@ -202,14 +183,13 @@ class App extends React.Component {
           <Board
             info={ this.state }
             board={ this.state.userBoard }
-            deleteEventFromUser={ this.deleteEventFromUser }/>
-
+            deleteEventFromUser={ this.deleteEventFromUser }
+          />
         </div>;
     } else if (this.state.isSignedIn && this.state.userBoard.length === 0) {
       display =
         <div className="ui middle aligned segment">
           <h1>Your board is empty</h1>
-
         </div>;
     }
     return display;
@@ -226,7 +206,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('state', this.state);
     return (
       <div>
         {configureAnchors({offset: -60, scrollDuration: 200})}
@@ -243,9 +222,11 @@ class App extends React.Component {
         />
 
         { this.displaySearch() }
+
         <ScrollableAnchor id={'myBoard'}>
           { this.displayBoard() }
         </ScrollableAnchor>
+
         <center><a onClick={ goToTop }>back to the top</a></center>
 
       </div>
