@@ -43,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
+app.use('/semantic', express.static(`${__dirname}/../semantic/dist`));
 
 app.use(session({
   secret: 'keyboard cat',
