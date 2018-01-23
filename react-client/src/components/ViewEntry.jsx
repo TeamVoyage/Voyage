@@ -39,11 +39,9 @@ class ViewEntry extends React.Component {
               <h4><a href={ this.props.event.url } target="_blank">{ this.props.event.name }</a></h4>
             </div>
             <center>
-              <div className="ui labeled button" tabIndex="0">
-                <div className="ui button" onClick={ this.handleClick }>
-                  <i className="heart icon"></i>
-                  { this.getLikeText(this.state.liked) }
-                </div>
+              <div className="ui button" onClick={ this.handleClick }>
+                <i className="heart icon"></i>
+                { this.getLikeText(this.state.liked) }
               </div>
             </center>
           </div>
