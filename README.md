@@ -1,13 +1,13 @@
 ## Voyage
 
-Plan your next getaway.
+ Pinterest for travelers!
 
 ## Team
 
-  - Daniel Kelly (Backend Development)
-  - Peter Wang (Front End Development)
-  - Steven Lee (Backend Development & Front End Stylization)
-  - Tejaswi Guvvala (Front End Development)
+  - Product Owner: Grant Spilsbury
+  - Scrum Master: Luna Kim
+  - Software Engineer: Ralph Plumley
+  - Software Engineer: Patty Kovash
 
 ## Table of Contents
 
@@ -16,43 +16,62 @@ Plan your next getaway.
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Create env File](#create-env-file)
-    1. [Tasks](#tasks)
-1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
-1. [Front End Development](#front-end-development)
-1. [Back End Development](#back-end-development)
+
 ## Usage
 
-Used for managing trips for individuals. Allows a user to search the events,restaurents,activities around the destination place. Users can also save their trips and collab with other users.
+Used for storing trip inspiration for individuals. Think of it as Pinterest for travelers. A user is able to search for restaurants, hotels, and events for a desired location. Users are able to save restaurants, hotels, and events that to a travel board.
 
 ## Requirements
 
-* Node
-* Express
-* React
-* Mongo DB
-* mongoose
-* Passport
-* body-parser
-* Axios
-* bluebird
-* passport-local
-* react-dom
-* webpack
-* babel
-* react-router-dom
-* bootstrap
+Dependencies
+
+"axios": "^0.17.1",
+"body-parser": "^1.17.2",
+"connect-ensure-login": "^0.1.1",
+"connect-mongo": "^2.0.1",
+"cookie-parser": "^1.3.5",
+"express": "^4.15.0",
+"express-session": "^1.15.6",
+"jquery": "^3.3.1",
+"mongoose": "^4.8.6",
+"passport": "^0.4.0",
+"passport-facebook": "^2.1.1",
+"pg": "^6.4.2",
+"pg-hstore": "^2.3.2",
+"react": "^15.6.2",
+"react-dom": "^15.4.2",
+"react-scrollable-anchor": "^0.5.0",
+"replace": "^0.3.0",
+"semantic-ui": "^2.2.13",
+"tedious": "^2.2.4"
+
+Dev Dependencies
+
+"babel-core": "^6.23.1",
+"babel-loader": "^6.3.2",
+"babel-preset-es2015": "^6.22.0",
+"babel-preset-react": "^6.23.0",
+"babel-preset-stage-0": "^6.24.1",
+"eslint": "^4.16.0",
+"eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+"eslint-plugin-import": "^2.8.0",
+"eslint-plugin-jsx-a11y": "^6.0.3",
+"eslint-plugin-react": "^7.5.1",
+"webpack": "^2.2.1"
 
 ## Development
-Once you have forked the repo from https://github.com/TeamVoyage/Voyage , install all the dependencies.
+
+Once you have forked the repo from https://github.com/HackBlocks/Voyage , install all the dependencies.
+
 ### Installing Dependencies
 
 From within the root directory:
 
-npm install
-------------------(Steps below will require a .env file)------
-npm run react-dev
-npm run server-dev
+1) npm install
+2) Create .env file (Follow steps below to set up .env file)
+3) npm run react-dev
+4) npm run server-dev
 
 ### Create env File
 
@@ -60,38 +79,15 @@ Inside the root folder, create a new file named ".env". Inside this file you wil
 
 `export YELP_API_KEY="(paste key value here)"`
 
-`export EVENT_BRITE_API_KEY="(paste key value here)"`
-
 ## Getting the tokens for the API calls
-We use yelp, Eventbrite API’s to collect the data, so you will need API keys for them to make requests. There are links below to create your own API key. 
+
+We use Yelp's API to collect the data, so you will need an API key for Yelp to make requests. There are links below to create your own API key.
 * Yelp API Key: https://www.yelp.com/fusion
-* Eventbrite API Key: https://www.eventbrite.com/developer/v3/quickstart/
 
-
-## Front End Development
-
-React, Axios, and React-Router were used heavily in the creation of this project. During the initial stages of this project we had a general idea of the direction of the project but did not know whether to go with an SPA design or not. This led to some back-tracking and re-writing of code, as well as making one of our pre-existing files obsolete. There is an index.jsx file left over from during our re-write process. 
-
-The search bar is a simple input field implemented as a stateful component to pass data back to the parent component. It is set to update its value upon any change made inside the field, and its state will update upon pressing the return key or on deselection of the field (onBlur). 
-
-The app.jsx file is the new top-level container for the app. Ideally when integrating React-Router, the View would only change upon successful receipt of data back from the server. However, as we were unable to successfully implement this function into the App file, the alternative was to change the state of the view which would then cause the Trip View to render in place. This is done without the use of React-Router inside of the "go" function. 
-
-React-Router is more seamlessly integrated into the TripView. The `<BrowserRouter>` tag acts as the parent `<div>` and maintains the history of the page. This allows `<Route>`, `<Link>`, and `<Switch>` to work as intended as all of the aforementioned tags require the user's browser history. This will also allow future integration of the "back" and "forward" browser features to allow users to backtrack or trace their history. 
-
-`<Peter W>`
-
-## Back End Development 
-
-Upon search the server listens for post requests to the following endpoints: 
-* /Eat [YELP]
-* /Sleep [YELP]
-* /Party [Event Brite]
-* /Party [YELP]
-
-The user's search input determines which endpoints are hit. Whenever an endpoint is hit, a GET request is made to the corresponding API, and the data from the API is returned to the client.  Helper functions for the API requests are located in server/utils.js
-
-In the future a user will be able to log in and save their trips to a database and then retrieve them later (see database/index.js and also the commented out code in config/passport-setup.js).
-
-## Contributing
+## Contributing & Acknowledgments
 
 See CONTRIBUTING.md for contribution guidelines
+
+Thanks to HiRs and other staff that helped with our issues!
+
+Thanks to the Greenfield (https://github.com/TeamVoyage/Voyage) group for answering questions and fun project for us to build on!
