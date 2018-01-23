@@ -14,7 +14,7 @@ var User = db.User;
 passport.use(new Strategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: process.env.URL + '/login/facebook/return',
+  callbackURL: '/login/facebook/return',
   passReqToCallback: true
 },
 function(req, accessToken, refreshToken, profile, done) {
