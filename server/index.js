@@ -45,11 +45,12 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../react-client/dist`));
 app.use('/semantic', express.static(`${__dirname}/../semantic/dist`));
 
+let url = process.env.MONGODB_URI || 'mongodb://localhost/tripcollab';
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({ url: 'mongodb://localhost/tripcollab'})
+  store: new MongoStore({ url: url})
 }));
 
 app.use(passport.initialize());
