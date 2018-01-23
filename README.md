@@ -26,6 +26,7 @@ Used for storing trip inspiration for individuals. Think of it as Pinterest for 
 
 Dependencies
 
+```
 "axios": "^0.17.1",
 "body-parser": "^1.17.2",
 "connect-ensure-login": "^0.1.1",
@@ -45,9 +46,11 @@ Dependencies
 "replace": "^0.3.0",
 "semantic-ui": "^2.2.13",
 "tedious": "^2.2.4"
+```
 
 Dev Dependencies
 
+```
 "babel-core": "^6.23.1",
 "babel-loader": "^6.3.2",
 "babel-preset-es2015": "^6.22.0",
@@ -59,6 +62,7 @@ Dev Dependencies
 "eslint-plugin-jsx-a11y": "^6.0.3",
 "eslint-plugin-react": "^7.5.1",
 "webpack": "^2.2.1"
+```
 
 ## Development
 
@@ -82,12 +86,17 @@ Inside the root folder, create a new file named ".env". Inside this file you wil
 ## Getting the tokens for the API calls
 
 We use Yelp's API to collect the data, so you will need an API key for Yelp to make requests. There are links below to create your own API key.
-* Yelp API Key: https://www.yelp.com/fusion
+* [Yelp API Key](https://www.yelp.com/fusion)
+
+## Ubuntu devs
+To run the app:
+1) run `sudo -s` to become a superuser on the terminal
+2) load your .env file by running `source .env`
+3) run `npm run react-dev`
+4) run `npm run nodemon server/server.js`
+
 
 ## Contributing & Acknowledgments
-
-See CONTRIBUTING.md for contribution guidelines
-
 Thanks to HiRs and other staff that helped with our issues!
 
-Thanks to the Greenfield (https://github.com/TeamVoyage/Voyage) group for answering questions and fun project for us to build on!
+Thanks to the [Greenfield](https://github.com/TeamVoyage/Voyage) group for answering questions and fun project for us to build on!
