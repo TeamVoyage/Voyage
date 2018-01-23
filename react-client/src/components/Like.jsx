@@ -23,7 +23,7 @@ class Like extends React.Component {
               <img src={ this.props.event.image_url } alt="" />
             </div>
             <div className="content">
-              <h4><a href={ this.props.event.url }>{ this.props.event.name }</a></h4>
+              <h4><a href={ this.props.event.url } target="_blank">{ this.props.event.name }</a></h4>
             </div>
             <center>
               <div className="ui teal button" onClick={ this.handleClick }>

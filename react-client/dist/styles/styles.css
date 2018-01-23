@@ -116,8 +116,7 @@ h2 {
   font-size: 14px;
 }
 
-
-.ui.six.column.doubling.stackable.masonry.grid {
+.ui.five.column.stackable.masonry.grid {
   margin: auto;
   max-width: 85%;
 }
@@ -136,7 +135,7 @@ h2 {
             column-gap: 0;
   }
 
-.ui.doubling.masonry.grid[class*="six column"] > .column {
+.ui.masonry.grid[class*="five column"] > .column {
     width: 100% !important;
   }
 }

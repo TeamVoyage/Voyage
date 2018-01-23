@@ -2,9 +2,9 @@ import React from 'react';
 import View from './View.jsx';
 
 const Results = (props) => {
-  var eatDiv;
-  var sleepDiv;
-  var doDiv;
+  let eatDiv;
+  let sleepDiv;
+  let doDiv;
   if (props.show.eat) {
     eatDiv = (
       <div className="ui middle aligned stackable segment">
