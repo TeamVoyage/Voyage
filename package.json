@@ -7,7 +7,8 @@
     "build:production": "NODE_ENV=production webpack --config webpack.config.js",
     "start": "node server/index.js",
     "react-dev": "webpack -d --watch",
-    "server-dev": "source .env && nodemon server/index.js"
+    "server-dev": "source .env && nodemon server/index.js",
+    "postinstall": "npm run build:production"
   },
   "author": "Beth Johnson",
   "license": "ISC",
