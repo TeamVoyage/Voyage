@@ -20,6 +20,14 @@ class SearchLocation extends React.Component {
     $(document).keypress(function(e) {
       context.handleReturnKey(e);
     });
+    this.loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCNRG6vRVSwfQoms39ey6RH6UscjBvqz74&libraries=places&language=en');
+  }
+
+  loadScript(src) {
+    var tag = document.createElement('script');
+    tag.async = false;
+    tag.src = src;
+    document.getElementsByTagName('body').appendChild(tag);
   }
 
   handleReturnKey(e) {
