@@ -14,7 +14,7 @@ var User = db.User;
 passport.use(new Strategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: process.env.URL + '/login/facebook/return',
+  callbackURL: '/login/facebook/return',
   passReqToCallback: true
 },
 function(req, accessToken, refreshToken, profile, done) {
@@ -43,12 +43,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
+app.use('/semantic', express.static(`${__dirname}/../semantic/dist`));
 
+let url = process.env.MONGODB_URI || 'mongodb://localhost/tripcollab';
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({ url: 'mongodb://localhost/tripcollab'})
+  store: new MongoStore({ url: url})
 }));
 
 app.use(passport.initialize());
@@ -115,5 +117,6 @@ app.post('/users/:userId/events', (req, res) => {
 
 app.listen(port, () => {
   console.log('listening on port 3000!');
+  console.log('mongo', process.env.MONGODB_URI)
 });
 

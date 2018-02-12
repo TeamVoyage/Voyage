@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/tripcollab');
-// mongoose.connect(process.env.MONGOLAB_PURPLE_URI);
+
+let url = process.env.MONGODB_URI || 'mongodb://localhost/tripcollab';
+mongoose.connect(url, { useMongoClient: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

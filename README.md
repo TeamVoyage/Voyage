@@ -4,7 +4,7 @@
 
 ## Team
 
-  - Product Owner: Grant Spilsbury
+  - Software Engineer: Grant Spilsbury
   - Scrum Master: Luna Kim
   - Software Engineer: Ralph Plumley
   - Software Engineer: Patty Kovash
