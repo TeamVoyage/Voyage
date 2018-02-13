@@ -1,114 +1,99 @@
 const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/tripcollab');
-mongoose.connect(process.env.MONGOLAB_PURPLE_URI);
 
-let restaurantSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
+let url = process.env.MONGODB_URI || 'mongodb://localhost/tripcollab';
+mongoose.connect(url, { useMongoClient: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connected to mongo');
 });
 
-let hotelSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let eventSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
-
-let attractionSchema = mongoose.Schema({
-  name: String,
-  imageUrl: String,
-  url: String
-});
+const logout = (sessionID, cb) => {
+  User.update({ sessionID: sessionID }, { $set: { sessionID: '' }}, cb);
+};
 
 let userSchema = mongoose.Schema({
-  googleId: String,
   username: String,
-  trips: Array
-});
-
-let tripSchema = mongoose.Schema({
-  name: String,
-  location: String,
-  restaurants: [restaurantSchema],
-  hotels: [hotelSchema],
-  events: [eventSchema],
-  attractions: [attractionSchema]
+  fbId: String,
+  sessionID: String,
+  events: [{
+    id: String,
+    name: String,
+    image_url: String,
+    url: String
+  }]
 });
 
 const User = mongoose.model('User', userSchema);
-const Trip = mongoose.model('Trip', tripSchema);
 
-// // dummy data for testing
-// const testTrip = {
-//   name: 'example trip2',
-//   location: 'chicago',
-//   restaurants: [{name: 'Burger King', price: 1, rating: 3 }],
-//   hotels: [{name: 'Hyatt', price: 2, rating: 3 }],
-//   events: [{name: 'Some Comedy Show'}],
-//   attractions: [{name: 'Space Musuem'}]
-// };
-//
-// const testUser = new User({
-//   googleId: 'daniel',
-//   username: 'kelly',
-//   trips: []
-// });
-//
-// testUser.save(err => {
-//   if(err) console.log(err);
-// });
-
-let saveTrip = (tripInfo, cb) => {
-  const trip = new Trip({
-    name: tripInfo.name,
-    location: tripInfo.location,
-    restaurants: tripInfo.restaurants,
-    hotels: tripInfo.hotels,
-    events: tripInfo.events,
-    attractions: tripInfo.attractions
-  });
-
-  const trip_id = trip._id;
-  console.log('trip id: ', trip._id);
-
-  trip.save(err => {
-    if (err) {
-      console.log(err);
+const updateOrCreateUser = (query, cb) => {
+  User.findOne({ fbId: query.fbId }, (err, user) => {
+    if (!user) {
+      let newUser = new User({
+        username: query.username,
+        sessionID: query.sessionID,
+        fbId: query.fbId
+      });
+      newUser.save(function(err, user) {
+        cb(err, user);
+      });
     } else {
-      cb();
+      user.sessionID = query.sessionID;
+      user.save(function(err, user) {
+        cb(err, user);
+      });
     }
   });
-
-
-
-  // User.find({googleId: currentUser}, (err, user) => {
-  //   user[0].trips = user[0].trips.concat(trip_id);
-  //   user[0].save(err => {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //   });
-  // });
 };
 
-let getAllTrips = (cb) => {
-    Trip.find({}, (err, trips) => {
-      if (err) {
-        return handleError(err);
-      } else {
-        cb(trips);
-      }
-    });
-  };
+const addUserEvent = (userId, event, cb) => {
+  User.findOne({ _id: userId }, (err, user) => {
+    if (user) {
+      var newEvents = user.events.concat([event]);
+      user.events = newEvents;
+      user.save(function(err, user) {
+        cb(err, user.events);
+      });
+    } else {
+      cb(err);
+    }
+  });
+};
 
-// // test db functionality
-// saveTrip(testTrip2, 'daniel');
+const deleteUserEvent = (userId, eventId, cb) => {
+  User.findOne({ _id: userId }, (err, user) => {
+    if (user) {
+      var newEvents = user.events.filter(function(event) {
+        return event.id !== eventId;
+      });
+      user.events = newEvents;
+      user.save(function(err, user) {
+        if (err) {
+          cb(err);
+        } else {
+          cb(null, user.events);
+        }
+      });
+    } else {
+      cb(err);
+    }
+  });
+};
 
-module.exports.saveTrip = saveTrip;
-module.exports.getAllTrips = getAllTrips;
+const getUserEvents = (userId, cb) => {
+  User.findOne({ _id: userId }, (err, user) => {
+    if (user) {
+      cb(null, user.events);
+    } else {
+      cb(err);
+    }
+  });
+};
+
+module.exports.updateOrCreateUser = updateOrCreateUser;
+module.exports.User = User;
+module.exports.logout = logout;
+module.exports.getUserEvents = getUserEvents;
+module.exports.addUserEvent = addUserEvent;
+module.exports.deleteUserEvent = deleteUserEvent;

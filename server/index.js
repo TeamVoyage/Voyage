@@ -1,101 +1,122 @@
 const express = require('express');
-//const passportSetup = require('./config/passport-setup');
-const authRoutes = require('./routes/auth-routes');
 const bodyParser = require('body-parser');
 const db = require('../database');
 const mongoose = require('mongoose');
 const utils = require('./utils');
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const Strategy = require('passport-facebook').Strategy;
+const cookieParser = require('cookie-parser');
+
+var User = db.User;
+
+passport.use(new Strategy({
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: '/login/facebook/return',
+  passReqToCallback: true
+},
+function(req, accessToken, refreshToken, profile, done) {
+  db.updateOrCreateUser({ fbId: profile.id, username: profile.displayName, sessionID: req.sessionID }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 const app = express();
 
 const port = process.env.PORT || 3000;
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
-//app.set('view engine', 'ejs');
+app.use('/semantic', express.static(`${__dirname}/../semantic/dist`));
 
-// app.use('/auth', authRoutes);
+let url = process.env.MONGODB_URI || 'mongodb://localhost/tripcollab';
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ url: url})
+}));
 
-// location, price, categories populated with dummy data unless client sends
-// params in req.body
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.get('/auth/home', (req, res) => {
-//   res.render('home');
-// });
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
 
-app.post('/eat', (req, res) => {
-  console.log('eat endpoint hit');
-  const term = 'restaurants';
-  const options = {
-    location: req.body.location || 'chicago',
-    price: req.body.price || 4,
-    term: term,
-    categories: req.body.categories || '',
-    api: 'yelp'
-  };
+app.get('/login/facebook/return',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
-  utils.getBusinessesOrEvents(options, (data) => {
-    res.send(data);
+app.get('/checkSession', (req, res) => {
+  User.findOne({ sessionID: req.sessionID }, (err, user) => {
+    if (user) {
+      res.send({ userId: user._id, name: user.username});
+    } else {
+      res.send();
+    }
   });
 });
 
-app.post('/explore', (req, res) => {
-  console.log('explore endpoint hit');
-  const term = 'tourism';
-  const options = {
-    location: req.body.location || 'newyork',
-    term: term,
-    categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
-    api: 'yelp'
-  };
-
-  utils.getBusinessesOrEvents(options, (data) => {
-    res.send(data);
+app.get('/logOut', (req, res) => {
+  db.logout(req.sessionID, function() {
+    res.send();
   });
 });
 
-app.post('/party', (req, res) => {
-  console.log('party endpoint hit');
-   const options = {
-     location: req.body.location || 'chicago',
-     api: 'eventBrite'
-   };
-
-  utils.getBusinessesOrEvents(options, (data) => {
-    res.send(data);
-  });
- });
-
-app.post('/sleep', (req, res) => {
-  console.log('sleep endpoint hit');
-  const term = 'hotels';
-
-  const options = {
-    location: req.body.location || 'philadelphia',
-    price: req.body.price || '3',
-    term: term,
-    api: 'yelp'
-  };
-
-  utils.getBusinessesOrEvents(options, (data) => {
-    res.send(data);
+app.get('/search', (req, res) => {
+  var location = req.query.location || '';
+  utils.search(location, function(err, results) {
+    // error handlerserver
+    res.status(200).send(results);
   });
 });
 
-app.post('/trips', (req, res) => {
-  db.saveTrip(req.body, () => {
-    res.sendStatus(201);
+app.get('/users/:userId/events', (req, res) => {
+  var userId = req.params.userId;
+  db.getUserEvents(userId, (err, events) => {
+    if (err) { res.sendStatus(403); }
+    res.status(200).send(events);
   });
 });
 
-app.get('/trips', (req, res) => {
-  db.getAllTrips((trips) => {
-    res.send(trips);
+app.delete('/users/:userId/events/:eventId', (req, res) => {
+  var userId = req.params.userId;
+  var eventId = req.params.eventId;
+  db.deleteUserEvent(userId, eventId, (err, events) => {
+    if (err) { res.sendStatus(403); }
+    res.status(200).send(events);
+  });
+});
+
+app.post('/users/:userId/events', (req, res) => {
+  var userId = req.params.userId;
+  var event = req.body.event;
+  db.addUserEvent(userId, event, (err, events) => {
+    if (err) { res.sendStatus(403); }
+    res.status(200).send(events);
   });
 });
 
 app.listen(port, () => {
   console.log('listening on port 3000!');
+  console.log('mongo', process.env.MONGODB_URI)
 });
+

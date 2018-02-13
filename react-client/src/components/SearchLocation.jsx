@@ -1,59 +1,88 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class SearchLocation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      location: '',
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.onSetDestination = this.onSetDestination.bind(this);
     this.handleReturnKey = this.handleReturnKey.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClear = this.handleClear.bind(this);
+    this.isSelected = this.isSelected.bind(this);
+    this.handleEatFilterClick = this.handleEatFilterClick.bind(this);
+    this.handleSleepFilterClick = this.handleSleepFilterClick.bind(this);
+    this.handleDoFilterClick = this.handleDoFilterClick.bind(this);
   }
 
-  handleInputChange(e) {
-    this.setState({
-      location: e.target.value,
+  componentDidMount() {
+    var input = document.getElementById('location-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    var context = this;
+    $(document).keypress(function(e) {
+      context.handleReturnKey(e);
     });
-    console.log('input data', this.state.location);
-    console.log('input data', this.state.location);
   }
 
   handleReturnKey(e) {
     if (e.key === 'Enter') {
-      this.props.changeLoc(this.state.location);
-      this.props.searchLocation(this.state.location);
-      console.log('return key function', this.state.location);
+      this.props.go(document.getElementById('location-input').value);
     }
   }
 
-  // Not used in current iteration
-  // Was initially left in case we decided to add a submit button for the location
   handleClick(e) {
     e.preventDefault();
-    this.props.searchLocation(this.target.name);
+    this.props.go(document.getElementById('location-input').value);
   }
 
-
-  onSetDestination() {
-    this.props.changeLoc(this.state.location);
+  handleClear(e) {
+    $('#location-input').val('');
+    this.props.clearSearch();
   }
 
-  // onBlur acts as a redundancy to onKeyPress
-  // in case user forgets/doesn't know to press "Enter"
+  isSelected(filter) {
+    return this.props.show[filter] ? 'ui grey button' : 'ui inverted button';
+  }
+
+  handleEatFilterClick() {
+    document.getElementById('location-input').focus();
+    this.props.handleFilterClick(!this.props.show.eat, this.props.show.sleep, this.props.show.do);
+  }
+
+  handleSleepFilterClick() {
+    document.getElementById('location-input').focus();
+    this.props.handleFilterClick(this.props.show.eat, !this.props.show.sleep, this.props.show.do);
+  }
+
+  handleDoFilterClick() {
+    document.getElementById('location-input').focus();
+    this.props.handleFilterClick(this.props.show.eat, this.props.show.sleep, !this.props.show.do);
+  }
 
   render() {
     return (
-      <div className="search-bar destination">
-        <input
-          className="form-control"
-          type="text"
-          value={this.state.value}
-          placeholder="I want to go to..."
-          onChange={this.handleInputChange}
-          onKeyPress={this.handleReturnKey}
-          onBlur={this.onSetDestination}
-        />
+      <div className="ui container">
+        <div className="headerDiv">
+          <span className="searchDiv">
+            <img src="../img/Voyager.png"/>
+            <br />
+            <br />
+            <div className="ui fluid input">
+              <input id="location-input" type="text" placeholder="I want to go to..."
+                onKeyPress={ this.handleReturnKey }
+              />
+              <div id="go-button" className="ui teal button" onClick={ this.handleClick }>GO</div>
+            </div>
+            <div id="clear-button" className="ui button teal basic" onClick={ this.handleClear }>CLEAR RESULTS</div>
+            <br />
+            <br />
+            <div>
+              <button id="btn1" className={ this.isSelected('eat') } name="eat" value={ this.props.show.eat } onClick={ this.handleEatFilterClick }>Eat</button>
+
+              <button id="btn2" className={ this.isSelected('sleep') } name="sleep" value={ this.props.show.sleep } onClick={ this.handleSleepFilterClick }>Sleep</button>
+
+              <button id="btn3" className={ this.isSelected('do') } name="do" value={ this.props.show.do } onClick={ this.handleDoFilterClick }>Do</button>
+            </div>
+          </span>
+        </div>
       </div>
     );
   }

@@ -1,186 +1,238 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import SearchLocation from './SearchLocation.jsx';
-import AddPrice from './AddPrice.jsx';
-import Header from './navHeader.jsx';
-import AddCategory from './AddCategory.jsx';
 import axios from 'axios';
-import TripView from './TripView.jsx';
+import Login from './Login.jsx';
+import SearchLocation from './SearchLocation.jsx';
+import Results from './Results.jsx';
+import View from './View.jsx';
+import Board from './Board.jsx';
+import $ from 'jquery';
+import ScrollableAnchor from 'react-scrollable-anchor';
+import { goToTop } from 'react-scrollable-anchor';
+import { configureAnchors } from 'react-scrollable-anchor';
 
 class App extends React.Component {
   constructor(props) {
-    console.log('index');
     super(props);
     this.state = {
+      userId: '',
+      name: [],
+      userBoard: [],
+      categories: {
+        restaurants: [],
+        hotels: [],
+        events: []
+      },
+      isSignedIn: false,
       location: '',
-      price: '',
-      activities: [],
-      sleep: [],
-      eat: [],
-      party: [],
-      explore: [],
-      view: 'home',
+      show: {
+        eat: true,
+        sleep: true,
+        do: true
+      }
     };
-    this.onChangeLocation = this.onChangeLocation.bind(this);
-    this.onChangePrice = this.onChangePrice.bind(this);
-    this.setActivities = this.setActivities.bind(this);
     this.go = this.go.bind(this);
-    this.getExploreData = this.getExploreData.bind(this);
-    this.getEatData = this.getEatData.bind(this);
-    this.getPartyData = this.getPartyData.bind(this);
-    this.getSleepData = this.getSleepData.bind(this);
-    this.changeTripView = this.changeTripView.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
+    this.addEventToUser = this.addEventToUser.bind(this);
+    this.deleteEventFromUser = this.deleteEventFromUser.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
   }
 
-  // sets the location state
-  onChangeLocation(destination) {
-    this.setState({
-      location: destination,
-    }, ()=>{console.log('Destination has been set!', this.state.location);});
+  componentDidMount() {
+    this.checkSession();
   }
 
-  // sets the price state
-  onChangePrice(value) {
-    this.setState({
-      price: value,
-    }, ()=>{console.log('Price has been set!', this.state.price);});
-    this.setActivities = this.setActivities.bind(this);
-  }
-
-  // sets the activities state
-  setActivities(data) {
-    this.setState({
-      activities: data,
+  checkSession() {
+    var that = this;
+    $.ajax({
+      url: '/checkSession',
+      success: function(response) {
+        if (response.userId) {
+          that.setState({
+            isSignedIn: true,
+            userId: response.userId,
+            name: response.name
+          });
+          that.getBoard(response.userId);
+        } else {
+          that.setState({
+            isSignedIn: false,
+            userId: '',
+            name: ''
+          });
+        }
+      },
+      error: function() {
+        console.log('check access token error');
+      }
     });
   }
 
-  // this method will get called when clicked on GO button
-  go() {
-    if (this.state.activities.includes('explore') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/explore', {
-        location: this.state.location,
-        price: this.state.price,
-      })
-        .then(response => {
-          console.log('explore data from server', response);
-           this.getExploreData(response.data);
-        })
-        .catch(error => {
-          console.log('error..!!', error);
-        });
-    }
-
-     if (this.state.activities.includes('sleep') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/sleep', {
-        location: this.state.location,
-        price: this.state.price,
-      })
-        .then(response => {
-           console.log('sleep data from server', response);
-           this.getSleepData(response.data);
-        })
-        .catch(error => {
-          console.log('error..!!', error);
-        });
-    }
-
-     if (this.state.activities.includes('eat') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/eat', {
-        location: this.state.location,
-        price: parseInt(this.state.price),
-      })
-        .then(response => {
-           console.log('eat data from server', response);
-           this.getEatData(response.data);
-        })
-        .catch(error => {
-          console.log('error..!!', error);
-        });
-    }
-
-      if (this.state.activities.includes('party') && this.state.location !== '' && this.state.price !== '') {
-      axios.post('/party', {
-        location: this.state.location,
-        price: this.state.price,
-      })
-        .then(response => {
-           console.log('party data from server', response.data);
-           this.getPartyData(response.data);
-        })
-        .catch(error => {
-          console.log('error..!!', error);
-        });
-    }
-    this.changeTripView();
+  handleLogOut() {
+    this.logOut();
   }
 
-//sets the trip view
-  changeTripView() {
-    this.setState({
-      view: 'trip',
-    }, () => {  console.log('change trip view') });
-  }
-
-  // sets the state with the explore data which is coming from server
-  getExploreData(data) {
-    this.setState({
-      explore: data,
+  logOut() {
+    var that = this;
+    $.ajax({
+      url: '/logOut',
+      success: function(isSignedIn) {
+        that.setState({ isSignedIn: false });
+      },
+      error: function() {
+        console.log('logout error');
+      }
     });
   }
 
-  // sets the state with the eat data which is coming from server
-  getEatData(data) {
+  deleteEventFromUser(event) {
+    var that = this;
+    axios.delete('/users/' + this.state.userId + '/events/' + event.id)
+      .then(response => {
+        that.setState({userBoard: response.data});
+
+      })
+      .catch(error => {
+        console.log('Could not delete ', error);
+      });
+  }
+
+  getBoard(userId) {
+    axios.get('/users/' + userId + '/events')
+      .then(response => {
+        this.setState({ userBoard: response.data });
+      })
+      .catch(error => {
+        console.log('could not retreieve board');
+      });
+  }
+
+  addEventToUser(event) {
+    axios.post('/users/' + this.state.userId + '/events', {
+      event: event
+    })
+      .then(response => {
+        this.setState({ userBoard: response.data });
+      })
+      .catch(error => {
+        console.log('Could not add this event', error);
+      });
+  }
+
+  clearSearch() {
     this.setState({
-      eat: data,
+      categories: {
+        restaurants: [],
+        hotels: [],
+        events: []
+      },
+      location: ''
     });
   }
 
-  // sets the state with the party data which is coming from server
-  getPartyData(data) {
+  go(loc) {
     this.setState({
-      party: data,
+      location: loc
     });
+
+    axios.get('/search', {
+      params: {location: loc}
+    })
+      .then(response => {
+        if (response.data !== '') {
+          this.setState({
+            categories: response.data
+          });
+        }
+      })
+      .catch(error => {
+        console.log('Error, could not search ', error);
+      });
   }
 
-  // sets the state with the sleep data which is coming from server
-  getSleepData(data) {
+  displaySearch() {
+    let display = <div></div>;
+
+    if (this.state.location) {
+      if (this.state.categories.restaurants.length !== 0 ||
+          this.state.categories.hotels.length !== 0 ||
+          this.state.categories.events.length !== 0) {
+        display =
+          <div>
+            <Results
+              info={ this.state }
+              addEventToUser={ this.addEventToUser }
+              deleteEventFromUser={ this.deleteEventFromUser }
+              show={ this.state.show }
+            />
+          </div>;
+      }
+    }
+    return display;
+  }
+
+  displayBoard() {
+    let display =
+      <div className="ui middle aligned segment">
+        <h1>Please sign in to see your board!</h1>
+      </div>;
+
+    if (this.state.isSignedIn && this.state.userBoard.length !== 0) {
+      display =
+        <div className="ui middle aligned stackable raised segment">
+          <h2>My Board</h2>
+          <Board
+            info={ this.state }
+            board={ this.state.userBoard }
+            deleteEventFromUser={ this.deleteEventFromUser }
+          />
+        </div>;
+    } else if (this.state.isSignedIn && this.state.userBoard.length === 0) {
+      display =
+        <div className="ui middle aligned segment">
+          <h1>Your board is empty</h1>
+        </div>;
+    }
+    return display;
+  }
+
+  handleFilterClicked(showEat, showSleep, showDo) {
     this.setState({
-      sleep: data,
+      show: {
+        eat: showEat,
+        sleep: showSleep,
+        do: showDo
+      }
     });
   }
 
   render() {
-    console.log('im invoked');
-    const { view } = this.state;
-    console.log('state view', this.state.view);
-    if (view === 'trip') {
-      return <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
-    } else if (view === 'home') {
-      return (
-        <div>
-          <div className="headers">
-            <h1>Voyage</h1>
-            <h5>Ready to plan out your next getaway?</h5>
-          </div>
-          <div className="searchContainer">
-            <div>
-              <div>
-                <SearchLocation changeLoc={this.onChangeLocation} />
-                <AddPrice changeBudget={this.onChangePrice} />
-                <AddCategory setActivities={this.setActivities} />
-              </div>
-            </div>
-          </div>
-          <div className="goButton">
-            <button type="button" className="btn btn-primary mb-2" onClick={this.go} > Lets Go! </button>
-          </div>
-        </div>
+    return (
+      <div>
+        {configureAnchors({offset: -60, scrollDuration: 200})}
+        <Login
+          handleLogOut={ this.handleLogOut.bind(this) }
+          isSignedIn={ this.state.isSignedIn }
+          name={ this.state.name }
+        />
+        <SearchLocation
+          go={ this.go }
+          handleFilterClick={ this.handleFilterClicked.bind(this) }
+          show={ this.state.show }
+          clearSearch={ this.clearSearch }
+        />
+
+        { this.displaySearch() }
+
+        <ScrollableAnchor id={'myBoard'}>
+          { this.displayBoard() }
+        </ScrollableAnchor>
+
+        <center><a onClick={ goToTop }>back to the top</a></center>
+
+      </div>
     );
-    }
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
-
 export default App;
+
