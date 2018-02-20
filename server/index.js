@@ -1,5 +1,6 @@
 const express = require('express');
 //const passportSetup = require('./config/passport-setup');
+const path = require('path');
 const authRoutes = require('./routes/auth-routes');
 const bodyParser = require('body-parser');
 const db = require('../database');
@@ -26,12 +27,11 @@ app.use(express.static(`${__dirname}/../react-client/dist`));
 // });
 
 app.post('/eat', (req, res) => {
-  console.log('eat endpoint hit');
   const term = 'restaurants';
   const options = {
     location: req.body.location || 'chicago',
     price: req.body.price || 4,
-    term: term,
+    term,
     categories: req.body.categories || '',
     api: 'yelp'
   };
@@ -42,11 +42,10 @@ app.post('/eat', (req, res) => {
 });
 
 app.post('/explore', (req, res) => {
-  console.log('explore endpoint hit');
   const term = 'tourism';
   const options = {
     location: req.body.location || 'newyork',
-    term: term,
+    term,
     categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
     api: 'yelp'
   };
@@ -57,21 +56,18 @@ app.post('/explore', (req, res) => {
 });
 
 app.post('/party', (req, res) => {
-  console.log('party endpoint hit');
-   const options = {
-     location: req.body.location || 'chicago',
-     api: 'eventBrite'
-   };
+  const options = {
+    location: req.body.location || 'chicago',
+    api: 'eventBrite'
+  };
 
   utils.getBusinessesOrEvents(options, (data) => {
     res.send(data);
   });
- });
+});
 
 app.post('/sleep', (req, res) => {
-  console.log('sleep endpoint hit');
   const term = 'hotels';
-
   const options = {
     location: req.body.location || 'philadelphia',
     price: req.body.price || '3',

@@ -1,7 +1,7 @@
 import React from 'react';
 import PartyViewListEntry from './PartyViewListEntry.jsx';
 
-let PartyView = (props) => {
+const PartyView = (props) => {
 
   return (
     <div className="viewTable">

@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-
 // takes list of business info from Yelp API and extracts relevant data
 const filterBusinesses = (array) => {
   return array.map((business) => {
@@ -16,7 +15,7 @@ const filterBusinesses = (array) => {
 
 // takes list of event info from EventBrite API and extracts relevant data
 const filterEvents = (array) => {
-  const top10 = array.slice(0,9);
+  const top10 = array.slice(0, 9);
   return top10.map((event) => {
     return {
       id: event.id,
@@ -36,7 +35,7 @@ const getAxios = (queryURL, key, api, cb) => {
     method: 'get',
     url: queryURL,
     headers: {
-      'Authorization': `Bearer ${key}`
+      Authorization: `Bearer ${key}`
     },
   })
     .then((response) => {
@@ -54,7 +53,6 @@ const getAxios = (queryURL, key, api, cb) => {
 
 // forms queryURL based on specified API and initiates GET request
 const getBusinessesOrEvents = (options, cb) => {
-  console.log('api: ', options.api);
   let queryURL;
   let key;
   const params = options;

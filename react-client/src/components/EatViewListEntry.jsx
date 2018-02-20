@@ -1,6 +1,6 @@
 import React from 'react';
 
-let EatViewListEntry = (props) => {
+const EatViewListEntry = (props) => {
   return (
     <tr>
       <td> <a href={ props.item.url }><h3>{ props.item.name }</h3></a> </td>
