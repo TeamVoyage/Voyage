@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 
-
 class AddCategory extends React.Component {
   constructor(props) {
     super(props);
@@ -16,11 +15,10 @@ class AddCategory extends React.Component {
 
   //  collecting the array of selected checkbox values onClick event
   onCheckBoxClick(e) {
-    let selectedElement = $("input[name='activities']:checked");
-    let arr = [];
+    const selectedElement = $("input[name='activities']:checked");
+    const arr = [];
     const obj = this;
     $.each(selectedElement, function (index) {
-      console.log(index, $(this).val());
       arr.push($(this).val());
       if (selectedElement.length - 1 === index) {
         obj.setData(arr);
@@ -62,7 +60,7 @@ class AddCategory extends React.Component {
                 <input className="categoryBox" type="checkbox" name="activities" value="explore" onClick={this.onCheckBoxClick} />
             Explore
               </label>
-          </p>
+            </p>
           </div>
         </div>
       </div>

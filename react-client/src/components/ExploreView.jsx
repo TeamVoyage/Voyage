@@ -1,7 +1,7 @@
 import React from 'react';
 import ExploreViewListEntry from './ExploreViewListEntry.jsx';
 
-let ExploreView = (props) => {
+const ExploreView = (props) => {
 
   return (
     <div className="viewTable">
@@ -21,6 +21,5 @@ let ExploreView = (props) => {
     </div>
   );
 };
-
 
 export default ExploreView;
