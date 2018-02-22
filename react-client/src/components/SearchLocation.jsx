@@ -15,25 +15,14 @@ class SearchLocation extends React.Component {
     this.setState({
       location: e.target.value,
     });
-    console.log('input data', this.state.location);
-    console.log('input data', this.state.location);
   }
 
   handleReturnKey(e) {
     if (e.key === 'Enter') {
       this.props.changeLoc(this.state.location);
       this.props.searchLocation(this.state.location);
-      console.log('return key function', this.state.location);
     }
   }
-
-  // Not used in current iteration
-  // Was initially left in case we decided to add a submit button for the location
-  handleClick(e) {
-    e.preventDefault();
-    this.props.searchLocation(this.target.name);
-  }
-
 
   onSetDestination() {
     this.props.changeLoc(this.state.location);
