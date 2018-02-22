@@ -55,7 +55,6 @@ const saveTrip = (tripInfo, cb) => {
   });
 
   const trip_id = trip._id;
-  console.log('trip id: ', trip._id);
 
   trip.save(err => {
     if (err) {
@@ -64,17 +63,6 @@ const saveTrip = (tripInfo, cb) => {
       cb();
     }
   });
-
-
-
-  // User.find({googleId: currentUser}, (err, user) => {
-  //   user[0].trips = user[0].trips.concat(trip_id);
-  //   user[0].save(err => {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //   });
-  // });
 };
 
 const getAllTrips = (cb) => {

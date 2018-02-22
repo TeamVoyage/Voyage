@@ -1,5 +1,4 @@
 const express = require('express');
-//const passportSetup = require('./config/passport-setup');
 const path = require('path');
 const authRoutes = require('./routes/auth-routes');
 const bodyParser = require('body-parser');
@@ -15,21 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/../react-client/dist`));
-//app.set('view engine', 'ejs');
-
-// app.use('/auth', authRoutes);
-
-// location, price, categories populated with dummy data unless client sends
-// params in req.body
-
-// app.get('/auth/home', (req, res) => {
-//   res.render('home');
-// });
 
 app.post('/eat', (req, res) => {
   const term = 'restaurants';
   const options = {
-    location: req.body.location || 'chicago',
+    location: req.body.location,
     price: req.body.price || 4,
     term,
     categories: req.body.categories || '',
@@ -44,7 +33,7 @@ app.post('/eat', (req, res) => {
 app.post('/explore', (req, res) => {
   const term = 'tourism';
   const options = {
-    location: req.body.location || 'newyork',
+    location: req.body.location,
     term,
     categories: req.body.categories || ['landmarks', 'galleries', 'parks', 'musuems'],
     api: 'yelp'
@@ -57,7 +46,7 @@ app.post('/explore', (req, res) => {
 
 app.post('/party', (req, res) => {
   const options = {
-    location: req.body.location || 'chicago',
+    location: req.body.location,
     api: 'eventBrite'
   };
 
@@ -69,8 +58,8 @@ app.post('/party', (req, res) => {
 app.post('/sleep', (req, res) => {
   const term = 'hotels';
   const options = {
-    location: req.body.location || 'philadelphia',
-    price: req.body.price || '3',
+    location: req.body.location,
+    price: req.body.price,
     term: term,
     api: 'yelp'
   };

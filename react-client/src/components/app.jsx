@@ -10,7 +10,6 @@ import TripView from './TripView.jsx';
 
 class App extends React.Component {
   constructor(props) {
-    console.log('index');
     super(props);
     this.state = {
       location: '',
@@ -37,14 +36,14 @@ class App extends React.Component {
   onChangeLocation(destination) {
     this.setState({
       location: destination,
-    }, ()=>{console.log('Destination has been set!', this.state.location);});
+    });
   }
 
   // sets the price state
   onChangePrice(value) {
     this.setState({
       price: value,
-    }, ()=>{console.log('Price has been set!', this.state.price);});
+    });
     this.setActivities = this.setActivities.bind(this);
   }
 
@@ -63,7 +62,6 @@ class App extends React.Component {
         price: this.state.price,
       })
         .then(response => {
-          console.log('explore data from server', response);
            this.getExploreData(response.data);
         })
         .catch(error => {
@@ -77,7 +75,6 @@ class App extends React.Component {
         price: this.state.price,
       })
         .then(response => {
-           console.log('sleep data from server', response);
            this.getSleepData(response.data);
         })
         .catch(error => {
@@ -91,7 +88,6 @@ class App extends React.Component {
         price: parseInt(this.state.price),
       })
         .then(response => {
-           console.log('eat data from server', response);
            this.getEatData(response.data);
         })
         .catch(error => {
@@ -105,7 +101,6 @@ class App extends React.Component {
         price: this.state.price,
       })
         .then(response => {
-           console.log('party data from server', response.data);
            this.getPartyData(response.data);
         })
         .catch(error => {
@@ -119,7 +114,7 @@ class App extends React.Component {
   changeTripView() {
     this.setState({
       view: 'trip',
-    }, () => {  console.log('change trip view') });
+    });
   }
 
   // sets the state with the explore data which is coming from server
@@ -151,9 +146,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('im invoked');
     const { view } = this.state;
-    console.log('state view', this.state.view);
     if (view === 'trip') {
       return <TripView eat={this.state.eat} party={this.state.party} sleep={this.state.sleep} explore={this.state.explore} />
     } else if (view === 'home') {
