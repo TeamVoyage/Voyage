@@ -1,21 +1,15 @@
 (function() {
-  $('label').on('click', function() {
-    if (!$(this).hasClass('toggleOption')) {
-      $(this).addClass('toggleOption');
-    } else {
-      // change color back to original
-    }
-  });
+  $('.priceButtons input[type=radio]').change(function() {
+    $('.priceButtons input[type=radio]').each(function(i) {
+      if ($(this).prop('checked')) {
+        $(this).parent().addClass('toggleOption');
+      } else {
+        $(this).parent().removeClass('toggleOption');
+      }
+    })
+  })
+
+  $('.categoryText input[type=checkbox]').change(function() {
+    $(this).parent().toggleClass('toggleOption');
+  })
 })();
-
-
-  // $('label').bind('mouseover mouseleave click', function(event) {
-  //   if(event.type == 'click') {
-  //     $(this).css('background-color', '#fedc3d')
-  //   } else if (event.type == 'mouseover') {
-  //     $(this).css('background-color', '#fedc3d')
-  //   } else if (event.type == 'mouseleave') {
-  //     console.log($(this).children()[0].clicked)
-  //     $(this).css('background-color', '#7cdbd5')
-  //   }
-  // })
